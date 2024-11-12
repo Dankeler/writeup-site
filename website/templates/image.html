@@ -1,0 +1,7 @@
+{% macro image(path) %}
+<div class="image-gallery flex justify-center mb-3">
+    <a onclick="openModal('{{path}}')">
+        <img src='{{path}}'/>
+    </a>
+</div>
+{% endmacro %}

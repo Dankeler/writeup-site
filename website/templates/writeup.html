@@ -1,0 +1,52 @@
+{% from "navigational.html" import navi %}
+
+{% extends "navbar.html" %}
+{% block content %}
+
+<div class="mt-5 flex">
+    <div class="w-screen">
+        <a class="text-4xl">
+            TryHackMe:
+            <a class="font-bold text-4xl">
+                {{writeup.name}}
+            </a>
+        </a>
+        <div class="pt-1">
+            <a class="text-xl">
+                {{writeup.description}}
+            </a>
+        </div>
+        <div class="pt-2 border-b pb-2 mb-5 w-4/5">
+            {% for tag in writeup.tags %}
+            <span class="bg-gray-300 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">{{tag.name}}</span>
+            {% endfor %}
+        </div>
+        <div class="flex">
+            <div id="writeup" class="w-4/5">
+                {{html_content | safe}}
+            </div>
+            <div class="w-1/5 flex flex-col items-center mx-auto">
+                <div>
+                    <ul class="bg-gray-200 rounded-md p-3">
+                        <p class="text-center font-bold">Latest Writeups</p>
+                        <li class="hover:text-blue-400 relative text-sm py-1 ps-3 hover:text-primary transition-all duration-700 ease-in-out border-gray-400 text-gray-700 dark:text-gray-300 dark:border-gray-600">
+                            <a class="ml-3 font-semibold" href="/writeup/Whiterose">
+                                TryHackMe: Whiterose
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="fixed mt-32">
+                    <ul class="bg-gray-200 rounded-md p-3">
+                        <p class="text-center font-bold">Contents</p>
+                        {% for list in writeup.lists %}
+                            {{navi(list.href, list.name)}}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

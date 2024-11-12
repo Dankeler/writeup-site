@@ -1,0 +1,13 @@
+{% macro link(href, icon, text) %}
+<div class="flex justify-center mb-2">
+    <a href="{{href}}" class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700" target="_blank">
+        <img class="ml-2 w-5 h-5 object-cover rounded-t-lg md:rounded-none md:rounded-s-lg" src="{{icon}}" alt=icon"">
+        <div class="flex justify-between p-2 leading-normal items-center">
+            <p class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">{{text}}</p>
+            <svg class="w-5 h-4 m-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/>
+            </svg>
+        </div>
+    </a>
+</div>
+{% endmacro %}

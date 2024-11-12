@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flowbite Flask</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='dist/css/output.css')}}">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Quicksand:wght@300..700&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-gray-50 red-hat-display">
+        <aside id="logo-sidebar" class="fixed h-full top-0 w-1/6 bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <div class="h-full shadow-md">
+                <div class="flex items-center justify-center border-b p-4 hover:bg-gray-100 ">
+                    <a href="/" class="flex justify-center ">
+                        <img src="../static/images/xd.png" alt="logo?" class=" me-3 rounded w-6 h-6" alt="FlowBite Logo" />
+                        <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">gownoNazwa</span>
+                    </a>
+                </div>
+                <ul class="font-medium pt-12">
+                    <li>
+                        <a href="/" class="flex items-center p-3 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group border-b ">
+                            <span class="ms-3 px-3">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center p-3 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group border-b">
+                            <span class="flex-1 ms-3 px-3 whitespace-nowrap">Categories</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center p-3 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group border-b">
+                            <span class="flex-1 ms-3 px-3 whitespace-nowrap">Tags</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center p-3 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ">
+                            <span class="flex-1 ms-3 px-3 whitespace-nowrap">About</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <div class="flex-1 flex flex-col h-screen">
+            <nav class="shadow-sm w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 p-4 items-center flex justify-end">
+                <div class="flex justify-end">
+                    <div class="flex ">
+                        <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
+                            <span class="sr-only">Open user menu</span>
+                            <img class="w-8 h-8 rounded-full" alt="jakieslogo?" src="" alt="user photo">
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- ZMIENIC NA GRID -->
+            <div class="flex justify-end">
+                <div class="flex flex-col justify-end w-3/4">
+                    {% block content %} {% endblock %}
+                </div>
+            </div>
+    </div>
+</body>
+
+</html>

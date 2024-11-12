@@ -1,0 +1,7 @@
+{% macro navi(id, text) %}
+<li id="{{ id }}" onclick="activate(this)" class="hover:text-blue-400 relative text-sm py-1 ps-3 hover:text-primary transition-all duration-700 ease-in-out border-l-4 border-gray-400 text-gray-700 dark:text-gray-300 dark:border-gray-600">
+    <a class="ml-3 font-semibold" href="#{{ id }}">
+        {{ text }}
+    </a>
+</li>
+{% endmacro %}

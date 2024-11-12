@@ -1,0 +1,7 @@
+{% macro list(entries) %}
+<ul class="list-disc list-inside mb-3">
+    {% for entry in entries %}
+        <li>{{entry}}</li>
+    {% endfor %}
+</ul>
+{% endmacro %}
