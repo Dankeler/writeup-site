@@ -1,10 +1,14 @@
 import os
-from flask import render_template, render_template_string, Blueprint, redirect
+from flask import render_template, render_template_string, Blueprint, redirect, g, request
 from .models import Writeup
 import markdown
+import sqlite3
 
 app = Blueprint('app', __name__)
 
+def db_connect():
+    conn = sqlite3.connect('instance/database.db')
+    return conn
 
 @app.route('/')
 def home():
@@ -31,5 +35,21 @@ def writeup(name):
     html_content = markdown.markdown(rendered_content)
 
     return render_template("writeup.html", writeup=writeup, html_content=html_content)
-        
+
+@app.route('/search', methods=["POST"])
+def search():
+    value = request.form.get('writeup_name')
+    connection = db_connect()
+
+    query = "SELECT * FROM writeup WHERE name LIKE ?"
+    results = connection.execute(query, ('%' + value + '%',))
+
+    column_names = [description[0] for description in results.description]
+
+    writeups = [dict(zip(column_names, row)) for row in results.fetchall()]
+
+    connection.close()
+    print(writeups)
+
+    return render_template("home.html", writeups=writeups)
 

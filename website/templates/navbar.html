@@ -14,57 +14,37 @@
 </head>
 
 <body class="bg-gray-50 red-hat-display">
-        <aside id="logo-sidebar" class="fixed h-full top-0 w-1/6 bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-            <div class="h-full shadow-md">
-                <div class="flex items-center justify-center border-b p-4 hover:bg-gray-100 ">
-                    <a href="/" class="flex justify-center ">
-                        <img src="../static/images/xd.png" alt="logo?" class=" me-3 rounded w-6 h-6" alt="FlowBite Logo" />
-                        <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">gownoNazwa</span>
-                    </a>
-                </div>
-                <ul class="font-medium pt-12">
-                    <li>
-                        <a href="/" class="flex items-center p-3 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group border-b ">
-                            <span class="ms-3 px-3">Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center p-3 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group border-b">
-                            <span class="flex-1 ms-3 px-3 whitespace-nowrap">Categories</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center p-3 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group border-b">
-                            <span class="flex-1 ms-3 px-3 whitespace-nowrap">Tags</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center p-3 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ">
-                            <span class="flex-1 ms-3 px-3 whitespace-nowrap">About</span>
-                        </a>
-                    </li>
-                </ul>
+    <div class="flex-1 flex flex-col h-screen">
+        <nav class="shadow-sm w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 p-4 flex items-center justify-between relative">
+            <div class="flex justify-between gap-4 items-center">
+                <img src="../static/images/xd.png" class="object-contain w-6 h-6">
+                <a>logo</a>
             </div>
-        </aside>
-
-        <div class="flex-1 flex flex-col h-screen">
-            <nav class="shadow-sm w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 p-4 items-center flex justify-end">
-                <div class="flex justify-end">
-                    <div class="flex ">
-                        <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
-                            <span class="sr-only">Open user menu</span>
-                            <img class="w-8 h-8 rounded-full" alt="jakieslogo?" src="" alt="user photo">
-                        </button>
+            <div class="absolute inset-x-0">
+                <form class="max-w-md mx-auto relative" action="/search" method="POST">
+                    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                            </svg>
+                        </div>
+                        <input name="writeup_name" type="search" id="default-search" class="transition duration-300 block w-full p-4 pl-10 pr-24 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Whiterose" required />
+                        <button type="submit" class="text-white absolute right-2.5 top-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                     </div>
-                </div>
-            </nav>
-
-            <!-- ZMIENIC NA GRID -->
-            <div class="flex justify-end">
-                <div class="flex flex-col justify-end w-3/4">
-                    {% block content %} {% endblock %}
-                </div>
+                </form>
             </div>
+            <div class="flex items-center ml-auto">
+                <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
+                    <span class="sr-only">Open user menu</span>
+                    <img class="w-8 h-8 rounded-full" alt="jakieslogo?" src="">
+                </button>
+            </div>
+        </nav>
+        
+        <div class="flex justify-center my-16 mx-8 md:mx-16 lg:mx-32 h-full">
+            {% block content %} {% endblock %}
+        </div>
     </div>
 </body>
 

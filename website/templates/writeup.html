@@ -1,44 +1,55 @@
 {% from "navigational.html" import navi %}
+{% from "link.html" import link %}
+{% from "difficulty.html" import difficulty %}
 
 {% extends "navbar.html" %}
 {% block content %}
 
-<div class="mt-5 flex">
-    <div class="w-screen">
-        <a class="text-4xl">
-            TryHackMe:
-            <a class="font-bold text-4xl">
-                {{writeup.name}}
-            </a>
-        </a>
-        <div class="pt-1">
-            <a class="text-xl">
-                {{writeup.description}}
-            </a>
+<div class="mt-5 flex justify-center px-16">
+    <div class="w-full px-4">
+        <div class="mb-4">
+            <h1 class="text-4xl">
+                TryHackMe:
+                <span class="font-bold">{{writeup.name}}</span>
+            </h1>
+            <p class="text-xl mt-1">{{writeup.description}}</p>
         </div>
-        <div class="pt-2 border-b pb-2 mb-5 w-4/5">
+        <div>
+            {{difficulty('Easy', 120)}}
+        </div>
+         
+        <div class="flex justify-start">
+            {{link("https://tryhackme.com/r/room/whiterose", "https://tryhackme.com/r/favicon.png", "Whiterose")}}
+        </div>
+        <div class="pt-2 border-b pb-2 mb-5 w-full">
             {% for tag in writeup.tags %}
             <span class="bg-gray-300 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">{{tag.name}}</span>
             {% endfor %}
         </div>
-        <div class="flex">
-            <div id="writeup" class="w-4/5">
+
+        <div class="flex flex-col lg:flex-row">
+            <!-- Main content area -->
+            <div id="writeup" class="w-full">
                 {{html_content | safe}}
             </div>
-            <div class="w-1/5 flex flex-col items-center mx-auto">
-                <div>
-                    <ul class="bg-gray-200 rounded-md p-3">
-                        <p class="text-center font-bold">Latest Writeups</p>
-                        <li class="hover:text-blue-400 relative text-sm py-1 ps-3 hover:text-primary transition-all duration-700 ease-in-out border-gray-400 text-gray-700 dark:text-gray-300 dark:border-gray-600">
+            
+            <!-- Sidebar area -->
+            <div class="w-full lg:w-1/5 lg:ml-8 flex flex-col items-center lg:items-start mt-5 lg:mt-0">
+                <div class="bg-gray-200 rounded-md p-3 w-full">
+                    <p class="text-center font-bold">Latest Writeups</p>
+                    <ul>
+                        <li class="hover:text-blue-400 relative text-sm py-1 ps-3 transition-all duration-300 text-gray-700 dark:text-gray-300">
                             <a class="ml-3 font-semibold" href="/writeup/Whiterose">
                                 TryHackMe: Whiterose
                             </a>
                         </li>
                     </ul>
                 </div>
-                <div class="fixed mt-32">
-                    <ul class="bg-gray-200 rounded-md p-3">
-                        <p class="text-center font-bold">Contents</p>
+                
+                <!-- Fixed contents navigation (only fixed on large screens) -->
+                <div class="bg-gray-200 rounded-md p-3 mt-8 w-full lg:sticky lg:top-32">
+                    <p class="text-center font-bold">Contents</p>
+                    <ul>
                         {% for list in writeup.lists %}
                             {{navi(list.href, list.name)}}
                         {% endfor %}
