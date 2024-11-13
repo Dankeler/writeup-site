@@ -1,12 +1,12 @@
 {% extends "navbar.html" %}
 {% block content %}
 
-<div class="bg-gray-50 w-full md:w-3/4">
+<div class="w-full md:w-3/4">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-4 md:p-8">
         {% for writeup in writeups %}
         <div class="transform transition ease-in-out hover:scale-105 duration-300">
-            <a href="/writeup/{{writeup.name}}" class="block bg-white border border-gray-200 rounded-lg shadow-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                <img class="h-40 w-full object-contain rounded-t-lg md:rounded-none md:rounded-s-lg border-b md:border-b-0 md:border-r" src="/static/images/{{writeup.name}}/logo.jpg" alt="">
+            <a href="/writeup/{{writeup.url}}" class="block bg-white border border-gray-200 rounded-lg shadow-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                <img class="h-40 w-full object-contain rounded-t-lg md:rounded-none md:rounded-s-lg border-b md:border-b-0 md:border-r" src="/static/images/{{writeup.url}}/logo.jpg" alt="">
                 <div class="p-4">
                     <h5 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">{{writeup.name}}</h5>
                     <p class="text-gray-700 dark:text-gray-400">{{writeup.description}}</p>

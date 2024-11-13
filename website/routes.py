@@ -20,12 +20,12 @@ def home():
 def writeups():
     return redirect("/")
 
-@app.route('/writeup/<string:name>')
-def writeup(name):
-    writeup = Writeup.query.get_or_404(name)
+@app.route('/writeup/<string:url>')
+def writeup(url):
+    writeup = Writeup.query.get_or_404(url)
     
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(base_dir, "writeups", writeup.name, writeup.md_file)
+    file_path = os.path.join(base_dir, "writeups", writeup.url, writeup.md_file)
 
     with open(file_path, 'r') as md_file:
         content = md_file.read()

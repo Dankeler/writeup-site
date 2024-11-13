@@ -5,16 +5,16 @@ from sqlalchemy import Enum as SQLAlchemyEnum
 
 writeup_tag = db.Table(
     'writeup_tag',
-    db.Column('writeup_name', db.String, db.ForeignKey('writeup.name'), primary_key=True),
+    db.Column('writeup_url', db.String, db.ForeignKey('writeup.url'), primary_key=True),
     db.Column('tag_id', db.Integer, db.ForeignKey('tag.id'), primary_key=True)
 )
 
 class List(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, unique=True, nullable=False)
+    name = db.Column(db.String, nullable=False)
     href = db.Column(db.String)
     
-    writeup_name = db.Column(db.String, db.ForeignKey('writeup.name'), nullable=False)
+    writeup_url = db.Column(db.String, db.ForeignKey('writeup.url'), nullable=False)
     writeup = db.relationship('Writeup', back_populates='lists')
 
 class Tag(db.Model):
@@ -24,10 +24,12 @@ class Tag(db.Model):
     writeups = db.relationship('Writeup', secondary=writeup_tag, back_populates='tags')
 
 class Writeup(db.Model):
-    name = db.Column(db.String, primary_key=True)
-    date = db.Column(db.DateTime(timezone=True), default=func.now())
+    url = db.Column(db.String, primary_key=True)
+    name = db.Column(db.String)
+    posted = db.Column(db.DateTime(timezone=True), default=func.now())
     description = db.Column(db.String)
     md_file = db.Column(db.String, nullable=False)
+    difficulty = db.Column(db.String)
 
     lists = db.relationship('List', back_populates='writeup')
     tags = db.relationship('Tag', secondary=writeup_tag, back_populates='writeups')
