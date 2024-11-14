@@ -10,7 +10,8 @@ module.exports = {
       spacing: {
         '1/8': '12.5%',
         '1/10': '10%',
-        'delay-25': 'transition-delay-25'
+        'delay-25': 'transition-delay-25',
+        '46': '46px',
       },
       transitionDelay: {
         '20': '20ms',

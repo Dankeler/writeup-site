@@ -2,6 +2,29 @@
 {% block content %}
 
 <div class="w-full md:w-3/4">
+    <div class="flex items-center justify-center">
+        <button id="dropdownDefaultButton" class="font-semibold text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+            Difficulty 
+            <svg id="dropdownArrow" class="ml-2 w-2.5 h-2.5 ms-3 transition-transform duration-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+            </svg>
+        </button>
+
+        <div id="dropdown" class="w-36 mt-44 absolute z-50 opacity-0 scale-y-0 origin-top bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 transition-all duration-300 ease-in-out">
+            <form id="difficultyForm">
+                <label class="block p-2 border-b hover:bg-gray-200 transition">
+                    <input class="focus:ring-0 focus:ring-offset-0 z-50 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 focus:outline-none" type="checkbox" name="difficulty" value="Easy" checked> Easy
+                </label>
+                <label class="block p-2 border-b hover:bg-gray-200 transition">
+                    <input class="focus:ring-0 focus:ring-offset-0 z-50 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 focus:outline-none" type="checkbox" name="difficulty" value="Medium" checked> Medium
+                </label>
+                <label class="block p-2 hover:bg-gray-200 transition">
+                    <input class="focus:ring-0 focus:ring-offset-0 z-50 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 focus:outline-none" type="checkbox" name="difficulty" value="Hard" checked> Hard
+                </label>
+            </form>
+        </div>
+    </div>
+
     <div id="writeupsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-4 md:p-8">
         {% for writeup in writeups %}
         <div class="writeup transform transition ease-in-out hover:scale-105 duration-300" data-difficulty="{{ writeup.difficulty }}">
@@ -16,5 +39,27 @@
         {% endfor %}
     </div>
 </div>
+
+<script>
+    const dropdownButton = document.getElementById('dropdownDefaultButton');
+    const dropdownMenu = document.getElementById('dropdown');
+    const dropdownArrow = document.getElementById('dropdownArrow');
+
+    dropdownButton.addEventListener('click', () => {
+        dropdownMenu.classList.toggle('opacity-0');
+        dropdownMenu.classList.toggle('scale-y-0');
+        dropdownMenu.classList.toggle('opacity-100');
+        dropdownMenu.classList.toggle('scale-y-100');
+        dropdownArrow.classList.toggle('rotate-180');
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            dropdownMenu.classList.add('opacity-0', 'scale-y-0');
+            dropdownMenu.classList.remove('opacity-100', 'scale-y-100');
+            dropdownArrow.classList.remove('rotate-180');
+        }
+    });
+</script>
 
 {% endblock %}

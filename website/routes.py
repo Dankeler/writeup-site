@@ -21,14 +21,12 @@ def home():
 
     return render_template("home.html", writeups=writeups)
 
-
-
 @app.route('/writeup')
 def writeups():
     return redirect("/")
 
 @app.route('/writeup/')
-def redirect():
+def redirect_home():
     return redirect('/')
 
 @app.route('/writeup/<string:url>')
