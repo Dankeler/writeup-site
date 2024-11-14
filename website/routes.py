@@ -20,6 +20,10 @@ def home():
 def writeups():
     return redirect("/")
 
+@app.route('/writeup/')
+def redirect():
+    return redirect('/')
+
 @app.route('/writeup/<string:url>')
 def writeup(url):
     writeup = Writeup.query.get_or_404(url)
