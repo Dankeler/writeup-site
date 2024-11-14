@@ -19,6 +19,19 @@
             <div class="flex justify-between gap-4 items-center">
                 <img src="../static/images/xd.png" class="object-contain w-6 h-6">
                 <a>logo</a>
+
+                <form id="difficultyForm" class="z-50">
+                    <label>
+                        <input class="focus:ring-0 focus:ring-offset-0 z-50 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 focus:outline-none" type="checkbox" name="difficulty" value="Easy" checked> Easy
+                    </label>
+                    <label>
+                        <input class="focus:ring-0 focus:ring-offset-0 z-50 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 focus:outline-none" type="checkbox" name="difficulty" value="Medium" checked> Medium
+                    </label>
+                    <label>
+                        <input class="focus:ring-0 focus:ring-offset-0 z-50 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 focus:outline-none" type="checkbox" name="difficulty" value="Hard" checked> Hard
+                    </label>
+                </form>
+                
             </div>
             <div class="absolute inset-x-0">
                 <form class="max-w-md mx-auto relative" action="/search" method="POST">
@@ -47,5 +60,26 @@
         </div>
     </div>
 </body>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const checkboxes = document.querySelectorAll("input[name='difficulty']");
+        const writeups = document.querySelectorAll(".writeup");
 
+        function filterWriteups() {
+            const activeDifficulties = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+            writeups.forEach(writeup => {
+                writeup.style.display = activeDifficulties.includes(writeup.dataset.difficulty) ? "" : "none";
+            });
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener("change", filterWriteups);
+        });
+
+        filterWriteups();
+    });
+</script>
 </html>

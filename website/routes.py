@@ -10,15 +10,26 @@ def db_connect():
     conn = sqlite3.connect('instance/database.db')
     return conn
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
     writeups = Writeup.query.all()
+    selected_difficulties = request.form.getlist('difficulty') if request.method == 'POST' else []
+
+    # Filter writeups based on selected difficulties only for POST requests
+    if selected_difficulties:
+        writeups = Writeup.query.filter(Writeup.difficulty.in_(selected_difficulties)).all()
 
     return render_template("home.html", writeups=writeups)
+
+
 
 @app.route('/writeup')
 def writeups():
     return redirect("/")
+
+@app.route('/writeup/')
+def redirect():
+    return redirect('/')
 
 @app.route('/writeup/<string:url>')
 def writeup(url):
