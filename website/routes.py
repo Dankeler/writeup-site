@@ -15,7 +15,6 @@ def home():
     writeups = Writeup.query.all()
     selected_difficulties = request.form.getlist('difficulty') if request.method == 'POST' else []
 
-    # Filter writeups based on selected difficulties only for POST requests
     if selected_difficulties:
         writeups = Writeup.query.filter(Writeup.difficulty.in_(selected_difficulties)).all()
 
@@ -34,7 +33,7 @@ def writeup(url):
     writeup = Writeup.query.get_or_404(url)
     
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(base_dir, "writeups", writeup.url, writeup.md_file)
+    file_path = os.path.join(base_dir, "writeups", writeup.url, "writeup.md")
 
     with open(file_path, 'r') as md_file:
         content = md_file.read()
