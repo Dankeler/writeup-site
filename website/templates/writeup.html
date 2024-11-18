@@ -3,15 +3,10 @@
 {% extends "navbar.html" %}
 {% block content %}
 
-<! -- TO DO?
-# FIX CODE COPYING
-#DISPLAYING DIFFICULTY IN HOME
-#HOME REDIRECT -- >
-
-<div class="mt-5 flex justify-center px-16">
+<div class="mt-5 flex px-16 w-full">
     <div class="w-full">
-        <div class="flex justify-between items-center">
-            <div class="w-full">
+        <div class="flex justify-between items-start">
+            <div class="w-4/5">
                 <div>
                     <h1 class="text-4xl">
                         TryHackMe:
@@ -19,23 +14,24 @@
                     </h1>
                     <p class="text-xl mt-1">{{writeup.description}}</p>
                 </div>
-                
+
                 {{difficulty(writeup.difficulty, writeup.posted.strftime('%b %d, %Y'))}}
-        
-                <div class="flex justify-start">
+
+                <div class="flex justify-start mt-3">
                     {{link("https://tryhackme.com/r/room/whiterose", "https://tryhackme.com/r/favicon.png", "Whiterose")}}
                 </div>
                 <div class="border-b pb-2 mb-5 w-full">
                     {% for tag in writeup.tags %}
-                    <span class="bg-gray-300 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">{{tag.name}}</span>
+                        <span class="bg-gray-300 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full">{{tag.name}}</span>
                     {% endfor %}
                 </div>
             </div>
-            <div class="w-full lg:w-1/5 lg:ml-8 flex flex-col items-center lg:items-start mt-5 lg:mt-0">
-                <div class="bg-gray-200 rounded-md p-3 w-full">
+
+            <div class="w-1/5 flex flex-col items-center mt-5 lg:mt-0 pl-6">
+                <div class="bg-gray-200 p-3 w-full">
                     <p class="text-center font-bold">Latest Writeups</p>
                     <ul>
-                        <li class="hover:text-blue-400 relative text-sm py-1 ps-3 transition-all duration-300 text-gray-700 dark:text-gray-300">
+                        <li>
                             <a class="ml-3 font-semibold" href="/writeup/Whiterose">
                                 TryHackMe: Whiterose
                             </a>
@@ -45,13 +41,13 @@
             </div>
         </div>
 
-        <div class="flex flex-col lg:flex-row">
-            <div id="writeup" class="w-full">
+        <div class="flex justify-between mt-8">
+            <div id="writeup" class="w-4/5">
                 {{html_content | safe}}
             </div>
-            
-            <div class="w-full lg:w-1/5 lg:ml-8 flex flex-col items-center lg:items-start mt-5 lg:mt-0">
-                <div class="bg-gray-200 rounded-md p-3 mt-8 w-full lg:sticky lg:top-32">
+
+            <div class="w-1/5 flex flex-col items-center pl-6 sticky top-20 h-screen">
+                <div class="bg-gray-200 p-3 w-full">
                     <p class="text-center font-bold">Contents</p>
                     <ul>
                         {% for list in writeup.lists %}
@@ -60,6 +56,7 @@
                     </ul>
                 </div>
             </div>
+            
         </div>
     </div>
 </div>
