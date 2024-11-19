@@ -30,7 +30,7 @@
         {% for writeup in writeups %}
         <div class="writeup transform transition ease-in-out hover:scale-105 duration-300" data-difficulty="{{ writeup.difficulty }}">
             <a href="/writeup/{{writeup.url}}" class="block bg-white border border-gray-200 rounded-lg shadow-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                <img class="h-40 w-full object-contain rounded-t-lg md:rounded-none md:rounded-s-lg border-b md:border-b-0 md:border-r" src="/static/images/{{writeup.url}}/logo.jpg" alt="">
+                <img class="pt-2 h-40 w-full object-contain rounded-t-lg md:rounded-none md:rounded-s-lg border-b md:border-b-0 md:border-r" src="/static/images/{{writeup.url}}/logo.jpg" alt="">
                 <div class="p-4">
                     <h5 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white flex justify-between items-center">
                         {{writeup.name}}

