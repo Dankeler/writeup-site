@@ -34,7 +34,7 @@
 
 
 {% macro difficulty(diff, posted) %}
-<div class="flex items-center space-x-3 p-2 rounded-lg bg-slate-600">
+<div class="flex items-center space-x-3 py-1 rounded-lg bg-slate-600">
     <div class="flex items-end gap-0.5 ">
         <div class="h-3 w-1.5 {% if diff == 'Easy' or diff == 'Medium' or diff == 'Hard' %}bg-blue-600{% else %}bg-gray-500{% endif %} rounded-sm"></div>
         <div class="h-5 w-1.5 {% if diff == 'Medium' or diff == 'Hard' %}bg-blue-600{% else %}bg-gray-500{% endif %} rounded-sm"></div>
@@ -117,7 +117,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const options = {
         root: null,
-        rootMargin: "0% 0% -70% 0%",
+        rootMargin: "0% 0% -50% 0%",
         threshold: 0.1,
     };
 

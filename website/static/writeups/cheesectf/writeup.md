@@ -12,19 +12,19 @@
 
 {{text("Upon visiting port 80, we are presented with a cheese shop page.")}}
 
-{{image("../../static/images/cheesectf/000002.jpg")}}
+{{image("../../static/writeups/cheesectf/images/000002.jpg")}}
 
 {{header("Admin page", "admin-page")}}
 
 {{text("There is also a login page.")}}
 
-{{image("../../static/images/cheesectf/000003.jpg")}}
+{{image("../../static/writeups/cheesectf/images/000003.jpg")}}
 
 {{text("We should test if <code class='bg-gray-300 rounded-md px-1'>SQL Injection</code> will work on this form.")}}
 
 {{text("We catch the request using Burp Suite and then try to use it in SQLMap.")}}
 
-{{image("../../static/images/cheesectf/000004.jpg")}}
+{{image("../../static/writeups/cheesectf/images/000004.jpg")}}
 
 {{console("sqlmap -r request.txt", "...
 got a 302 redirect to 'http://10.10.229.61/secret-script.php?file=supersecretadminpanel.html'. Do you want to follow? [Y/n]
@@ -32,17 +32,17 @@ got a 302 redirect to 'http://10.10.229.61/secret-script.php?file=supersecretadm
 
 {{text("We can see that SQLMap got redirected to <code class='bg-gray-300 rounded-md px-1'>?file=supersecretadminpanel.html</code>. We can try to go to this URL.")}}
 
-{{image("../../static/images/cheesectf/000013.jpg")}}
+{{image("../../static/writeups/cheesectf/images/000013.jpg")}}
 
 {{text("We access the admin panel for the website.")}}
 
-{{image("../../static/images/cheesectf/000005.jpg")}}
+{{image("../../static/writeups/cheesectf/images/000005.jpg")}}
 
 {{header("Shell as www-data", "shell-as-www-data")}}
 
 {{text("There is an interesting <code class='bg-gray-300 rounded-md px-1'>?file</code> parameter together with <code class='bg-gray-300 rounded-md px-1'>php://filter</code>.")}}
 
-{{image("../../static/images/cheesectf/000006.jpg")}}
+{{image("../../static/writeups/cheesectf/images/000006.jpg")}}
 
 {{text("While trying to read about PHP filters and how to exploit them, I stumbled upon this:")}}
 
@@ -56,7 +56,7 @@ got a 302 redirect to 'http://10.10.229.61/secret-script.php?file=supersecretadm
 
 {{text("We get a reverse shell from <code class='bg-gray-300 rounded-md px-1'>revshells.com</code> and save it in a file.")}}
 
-{{image("../../static/images/cheesectf/000007.jpg")}}
+{{image("../../static/writeups/cheesectf/images/000007.jpg")}}
 
 {{text("We then generate a PHP filter chain that will download our reverse shell and execute it.")}}
 
@@ -68,13 +68,13 @@ got a 302 redirect to 'http://10.10.229.61/secret-script.php?file=supersecretadm
 
 {{text("If we did everything correctly, we should now have a reverse shell.")}}
 
-{{image("../../static/images/cheesectf/000008.jpg")}}
+{{image("../../static/writeups/cheesectf/images/000008.jpg")}}
 
 {{header("Shell as comte", "shell-as-comte")}}
 
 {{text("While browsing through the files, we go into <code class='bg-gray-300 rounded-md px-1'>/home/comte/.ssh</code> and discover that the <code class='bg-gray-300 rounded-md px-1'>authorized_keys</code> file is writable by us.")}}
 
-{{image("../../static/images/cheesectf/000009.jpg")}}
+{{image("../../static/writeups/cheesectf/images/000009.jpg")}}
 
 {{text("We just need to add our SSH key into this file, and we will be able to log in as the <code class='bg-gray-300 rounded-md px-1'>comte</code> user.")}}
 
@@ -87,7 +87,7 @@ Enter passphrase (empty for no passphrase):
 
 {{text("We copy our <code class='bg-gray-300 rounded-md px-1'>id_rsa.pub</code> key and paste it into the <code class='bg-gray-300 rounded-md px-1'>authorized_keys</code> file.")}}
 
-{{image("../../static/images/cheesectf/000010.jpg")}}
+{{image("../../static/writeups/cheesectf/images/000010.jpg")}}
 
 {{text("We can now log in as user <code class='bg-gray-300 rounded-md px-1'>comte</code> by providing our <code class='bg-gray-300 rounded-md px-1'>id_rsa</code> file.")}}
 
@@ -117,7 +117,7 @@ Welcome to Ubuntu 20.04.6 LTS GNU/Linux 5.4.0-174-generic x86_64 ...")}}
 
 {{text("We have to modify it for it to run.")}}
 
-{{image("../../static/images/cheesectf/000011.jpg")}}
+{{image("../../static/writeups/cheesectf/images/000011.jpg")}}
 
 {{text("Now, after running the service, a <code class='bg-gray-300 rounded-md px-1'>SUID bit</code> should have been added to the <code class='bg-gray-300 rounded-md px-1'>xxd</code> binary.")}}
 
@@ -125,6 +125,6 @@ Welcome to Ubuntu 20.04.6 LTS GNU/Linux 5.4.0-174-generic x86_64 ...")}}
 
 {{link("https://gtfobins.github.io/gtfobins/xxd/#file-read", "https://gtfobins.github.io/assets/logo.png", "xxd | GTFObins")}}
 
-{{image("../../static/images/cheesectf/000012.jpg")}}
+{{image("../../static/writeups/cheesectf/images/000012.jpg")}}
 
 {{script()}}

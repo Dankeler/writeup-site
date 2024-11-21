@@ -30,13 +30,15 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel")}}
 
 {{text("Next, we proceed to examine the website hosted on port 80.")}}
 
-{{image("../../static/images/uahighschool/000002.jpg")}}
+{{image("../../static/writeups/uahighschool/images/000001.jpg")}}
 
 {{text("Inspecting the source code reveals a <code class='bg-gray-300 rounded-md px-1'>/assets</code> directory.")}}
 
+{{image("../../static/writeups/uahighschool/images/000002.jpg")}}
+
 {{text("Navigating to <code class='bg-gray-300 rounded-md px-1'>/assets</code> displays a blank page, which seems unusual.")}}
 
-{{text("Access to <code class='bg-gray-300 rounded-md px-1'>/assets/images</code> is forbidden.")}}
+{{text("Access to <code class='bg-gray-300 rounded-md px-1'>/assets/writeups</code> is forbidden.")}}
 
 {{text("I used a directory-scanning tool to uncover any hidden directories.")}}
 
@@ -68,7 +70,7 @@ Finished
 
 {{text("Although the file is empty, trying out different parameters in the URL eventually yields a result.")}}
 
-{{image("../../static/images/uahighschool/000003.jpg")}}
+{{image("../../static/writeups/uahighschool/images/000003.jpg")}}
 
 {{text("It appears that the <code class='bg-gray-300 rounded-md px-1'>cmd</code> parameter can accept arguments, returning base64-encoded output.")}}
 
@@ -76,11 +78,11 @@ Finished
 
 {{text("I use the following command from <code class='bg-gray-300 rounded-md px-1'>revshells.com</code>. Remember to URL encode your payload.")}}
 
-{{image("../../static/images/uahighschool/000004.jpg")}}
+{{image("../../static/writeups/uahighschool/images/000004.jpg")}}
 
 {{text("Passing the encoded payload as a parameter provides us with a reverse shell.")}}
 
-{{image("../../static/images/uahighschool/000005.jpg")}}
+{{image("../../static/writeups/uahighschool/images/000005.jpg")}}
 
 {{header("Shell as deku", "shell-as-deku")}}
 
@@ -88,11 +90,11 @@ Finished
 
 {{console("cat passphrase.txt | base64 -d", "AllmightForEver!!!")}}
 
-{{text("Further exploration leads to an unused image file in the <code class='bg-gray-300 rounded-md px-1'>/var/www/html/assets/images</code> directory.")}}
+{{text("Further exploration leads to an unused image file in the <code class='bg-gray-300 rounded-md px-1'>/var/www/html/assets/writeups</code> directory.")}}
 
 {{text("I suspected the password might be for extracting hidden content using <code class='bg-gray-300 rounded-md px-1'>steghide</code>.")}}
 
-{{text("I Downloaded the image using <code class='bg-gray-300 rounded-md px-1'>wget 10.10.123.111/assets/images/oneforall.jpg</code>.")}}
+{{text("I Downloaded the image using <code class='bg-gray-300 rounded-md px-1'>wget 10.10.123.111/assets/writeups/oneforall.jpg</code>.")}}
 
 {{text("Then, I attempted to extract hidden content with the password.")}}
 
@@ -115,6 +117,8 @@ steghide: the file format of the file 'oneforall.jpg' is not supported.")}}
 00000090: 2828 2828 2828 2828 2828 2828 2828 ffc0  ((((((((((((((..")}}
 
 {{text("Changing the file signature to <code class='bg-gray-300 rounded-md px-1'>JPG</code> allows <code class='bg-gray-300 rounded-md px-1'>steghide</code> to extract the hidden content.")}}
+
+{{image("../../static/writeups/uahighschool/images/000006.jpg")}}
 
 {{text("This reveals credentials to log in via <code class='bg-gray-300 rounded-md px-1'>SSH</code>.")}}
 
@@ -160,7 +164,7 @@ fi
 
 {{console("ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILO60uNhTUNMEDTfn5f+qZZDXWg1JcMGtypKRMyIxnn6 kali@kali >> /root/.ssh/authorized_keys")}}
 
-{{image("../../static/images/uahighschool/000007.jpg")}}
+{{image("../../static/writeups/uahighschool/images/000007.jpg")}}
 
 {{text("We now can log in as root by providing our <code class='bg-gray-300 rounded-md px-1'>id_rsa</code> key.")}}
 
@@ -168,6 +172,6 @@ fi
 
 {{text("We are able to find the flag in <code class='bg-gray-300 rounded-md px-1'>/root</code>.")}}
 
-{{image("../../static/images/uahighschool/000008.jpg")}}
+{{image("../../static/writeups/uahighschool/images/000008.jpg")}}
 
 {{script()}}

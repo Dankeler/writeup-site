@@ -12,7 +12,7 @@ def db_connect():
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    writeups = Writeup.query.all()
+    writeups = Writeup.query.order_by(Writeup.posted.desc()).all()
     selected_difficulties = request.form.getlist('difficulty') if request.method == 'POST' else []
 
     if selected_difficulties:
@@ -33,7 +33,7 @@ def writeup(url):
     writeup = Writeup.query.get_or_404(url)
     
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(base_dir, "writeups", writeup.url, "writeup.md")
+    file_path = os.path.join(base_dir, "static", "writeups", writeup.url, "writeup.md")
 
     with open(file_path, 'r') as md_file:
         content = md_file.read()
@@ -57,7 +57,6 @@ def search():
     writeups = [dict(zip(column_names, row)) for row in results.fetchall()]
 
     connection.close()
-    print(writeups)
-
+    
     return render_template("home.html", writeups=writeups)
 

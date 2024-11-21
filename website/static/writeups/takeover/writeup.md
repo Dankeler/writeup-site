@@ -46,14 +46,14 @@ ff02::2 ip6-allrouters")}}
 
 {{text("While looking for attack vectors, I noticed something in the <code class='bg-gray-300 rounded-md px-1'>https://support.futurevera.thm</code> certificate.")}}
 
-{{image("../../static/images/takeover/000002.jpg")}}
+{{image("../../static/writeups/takeover/images/000001.jpg")}}
 
 {{text("There was a hidden subdomain in the <code class='bg-gray-300 rounded-md px-1'>DNS Name</code> field.")}}
 
-{{image("../../static/images/takeover/000003.jpg")}}
+{{image("../../static/writeups/takeover/images/000002.jpg")}}
 
 {{text("After adding that subdomain to our <code class='bg-gray-300 rounded-md px-1'>/etc/hosts</code> file and visiting it, we get the flag.")}}
 
-{{image("../../static/images/takeover/000004.jpg")}}
+{{image("../../static/writeups/takeover/images/000003.jpg")}}
 
 {{script()}}

@@ -16,7 +16,7 @@ PORT     STATE SERVICE
 
 {{text("After visiting the site on port 8000, we encountered the following.")}}
 
-{{image("../../static/images/pyrat/000001.jpg")}}
+{{image("../../static/writeups/pyrat/images/000001.jpg")}}
 
 {{header("Shell as www-data", "shell-as-www-data")}}
 
@@ -32,7 +32,7 @@ print(2)
 
 {{text("Since it worked, I used a Python reverse shell from <code class='bg-gray-300 rounded-md px-1'>revshells.com</code> and attempted to get it running.")}}
 
-{{image("../../static/images/pyrat/000002.jpg")}}
+{{image("../../static/writeups/pyrat/images/000002.jpg")}}
 
 {{text("This worked, and now we were the <code class='bg-gray-300 rounded-md px-1'>www-data</code> user.")}}
 
@@ -76,7 +76,7 @@ no changes added to commit (use 'git add' and/or 'git commit -a')")}}
 
 {{text("We noticed that <code class='bg-gray-300 rounded-md px-1'>pyrat.py.old</code> had been deleted. Let's attempt to restore that file.")}}
 
-{{image("../../static/images/pyrat/000003.jpg")}}
+{{image("../../static/writeups/pyrat/images/000003.jpg")}}
 
 {{text("Now, we can read the contents of the restored file.")}}
 
@@ -106,7 +106,7 @@ def shell(client_socket):
 
 {{text("Let's try connecting to our target again using netcat and input <code class='bg-gray-300 rounded-md px-1'>shell</code>.")}}
 
-{{image("../../static/images/pyrat/000004.jpg")}}
+{{image("../../static/writeups/pyrat/images/000004.jpg")}}
 
 {{text("It works, but unfortunately, we are still the <code class='bg-gray-300 rounded-md px-1'>www-data</code> user.")}}
 
@@ -114,7 +114,7 @@ def shell(client_socket):
 
 {{text("To be honest, I didn't feel like writing a script for it, so I started guessing since this is an easy challenge, and I got lucky.")}}
 
-{{image("../../static/images/pyrat/000005.jpg")}}
+{{image("../../static/writeups/pyrat/images/000005.jpg")}}
 
 {{text("We need the admin's password, so I guess that's karma. I wrote a script to guess the password.")}}
 
@@ -160,10 +160,10 @@ if __name__ == '__main__':
 
 {{text("We got the password almost immediately.")}}
 
-{{image("../../static/images/pyrat/000006.jpg")}}
+{{image("../../static/writeups/pyrat/images/000006.jpg")}}
 
 {{text("After logging in as admin, we gained root access. Now, we just need to go to <code class='bg-gray-300 rounded-md px-1'>/root</code> and retrieve our flag.")}}
 
-{{image("../../static/images/pyrat/000007.jpg")}}
+{{image("../../static/writeups/pyrat/images/000007.jpg")}}
 
 {{script()}}  
