@@ -91,7 +91,7 @@
 {% endmacro %}
 
 {% macro navi(id, text) %}
-<li id="{{ id }}" onclick="activate(this)" class="hover:text-blue-400 relative text-sm py-1 ps-3 hover:text-primary transition-all duration-700 ease-in-out border-l-4 border-gray-400 text-gray-700 dark:text-gray-300 dark:border-gray-600">
+<li id="{{ id }}" onclick="activate(this)" class="transform hover:text-blue-400 relative text-sm py-1 ps-3 hover:text-primary transition-all duration-500 ease-in-out border-l-4 border-gray-400 text-gray-700 dark:text-gray-300 dark:border-gray-600">
     <a class="ml-3 font-semibold" href="#{{ id }}">
         {{ text }}
     </a>
@@ -110,39 +110,60 @@
             item.classList.add("border-gray-400", "text-gray-700");
         });
 
-        element.classList.remove("border-gray-400", "text-gray-700");
-        element.classList.add("border-blue-500", "text-blue-400");
+        if (element) {
+            element.classList.remove("border-gray-400", "text-gray-700");
+            element.classList.add("border-blue-500", "text-blue-400");
+        }
     }
 
-document.addEventListener("DOMContentLoaded", () => {
-    const options = {
-        root: null,
-        rootMargin: "0% 0% -50% 0%",
-        threshold: 0.1,
-    };
+    document.addEventListener("DOMContentLoaded", () => {
+        const options = {
+            root: document.querySelector("writeup"),
+            rootMargin: "0% 0% -30% 0%",
+            threshold: 0.1,
+        };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            console.log(entry)
-            const navItem = document.querySelector(`a[href="#${entry.target.id}"]`)?.parentElement;
+        let currentActiveElement = null;
 
-            if (entry.isIntersecting && entry.target != navItem) {
-                navItem?.classList.add("border-blue-500", "text-blue-400");
-                navItem?.classList.remove("border-gray-400", "text-gray-700");
-            } else {
-                navItem?.classList.remove("border-blue-500", "text-blue-400");
-                navItem?.classList.add("border-gray-400", "text-gray-700");
+        const observer = new IntersectionObserver((entries) => {
+            const visibleEntries = entries
+                .filter((entry) => entry.isIntersecting)
+                .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+            if (visibleEntries.length > 0) {
+                const navItem = document.querySelector(`a[href="#${visibleEntries[0].target.id}"]`)?.parentElement;
+
+                if (currentActiveElement !== navItem) {
+                    activate(navItem);
+                    currentActiveElement = navItem;
+                }
+            } else if (currentActiveElement === null) {
+                const sections = document.querySelectorAll("section[id]");
+                let closestSection = null;
+                let minDistance = Infinity;
+
+                sections.forEach((section) => {
+                    const rect = section.getBoundingClientRect();
+                    const distance = Math.abs(rect.top);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closestSection = section;
+                    }
+                });
+
+                if (closestSection) {
+                    const navItem = document.querySelector(`a[href="#${closestSection.id}"]`)?.parentElement;
+                    activate(navItem);
+                    currentActiveElement = navItem;
+                }
             }
+        }, options);
+
+        const sections = document.querySelectorAll("section[id]");
+        sections.forEach((section) => {
+            observer.observe(section);
         });
-    }, options);
-
-    const sections = document.querySelectorAll("section[id]");
-    console.log(sections)
-    sections.forEach((section) => {
-        observer.observe(section);
     });
-
-});
 
     function openModal(imageSrc) {
         const modal = document.getElementById("imageModal");

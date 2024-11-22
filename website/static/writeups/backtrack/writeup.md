@@ -47,7 +47,7 @@ PORT     STATE SERVICE         VERSION
 
 {{text("Visiting the page on port 8888, we find the <code class='bg-gray-300 rounded-md px-1'>aria2</code> web application.")}}
 
-{{image("../../static/writeups/backtrack/000001.jpg")}}
+{{image("../../static/writeups/backtrack/images/000001.jpg")}}
 
 {{text("By checking the server info in the settings tab, we discover that the <code class='bg-gray-300 rounded-md px-1'>aria2</code> version is 1.35.0.")}}
 
@@ -90,7 +90,7 @@ wilbur:x:1004:1004::/home/wilbur:/bin/bash
 
 {{text("Now, let's switch to the <code class='bg-gray-300 rounded-md px-1'>tomcat</code> server at port 8080 and log in with our credentials by accessing the <code class='bg-gray-300 rounded-md px-1'>Manager App</code>.")}}
 
-{{image("../../static/writeups/backtrack/000002.jpg")}}
+{{image("../../static/writeups/backtrack/images/000002.jpg")}}
 
 {{text("Unfortunately, we lack the necessary permissions to access the GUI due to our <code class='bg-gray-300 rounded-md px-1'>manager-script</code> role.")}}
 
@@ -126,7 +126,7 @@ Saved as: shell.war")}}
 
 {{text("Going to <code class='bg-gray-300 rounded-md px-1'>/opt/tomcat</code> allows us to view our first flag.")}}
 
-{{image("../../static/writeups/backtrack/000003.jpg")}}
+{{image("../../static/writeups/backtrack/images/000003.jpg")}}
 
 {{header("Shell as wilbur", "shell-as-wilbur")}}
 
@@ -144,7 +144,7 @@ User tomcat may run the following commands on Backtrack:
 
 {{link("https://gtfobins.github.io/gtfobins/ansible-playbook/", "https://gtfobins.github.io/assets/logo.png", "ansible-playbook")}}
 
-{{image("../../static/writeups/backtrack/000004.jpg")}}
+{{image("../../static/writeups/backtrack/images/000004.jpg")}}
 
 {{text("We are now the user <code class='bg-gray-300 rounded-md px-1'>wilbur</code>.")}}
 
@@ -152,7 +152,7 @@ User tomcat may run the following commands on Backtrack:
 
 {{text("While navigating the files, we find a note from another user in our home directory.")}}
 
-{{image("../../static/writeups/backtrack/000005.jpg")}}
+{{image("../../static/writeups/backtrack/images/000005.jpg")}}
 
 {{text("We should try to look for the app mentioned in the note.")}}
 
@@ -171,7 +171,7 @@ tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      
 
 {{text("We now can go to <code class='bg-gray-300 rounded-md px-1'>http://127.0.0.1:80</code> on our local machine.")}}
 
-{{image("../../static/writeups/backtrack/000006.jpg")}}
+{{image("../../static/writeups/backtrack/images/000006.jpg")}}
 
 {{text("We discover an image gallery app, and we can use the credentials we found in the note to log in.")}}
 
@@ -185,13 +185,13 @@ tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      
 
 {{text("We are able to find the second flag in our user home directory.")}}
 
-{{image("../../static/writeups/backtrack/000008.jpg")}}
+{{image("../../static/writeups/backtrack/images/000008.jpg")}}
 
 {{header("Shell as root", "shell-as-root")}}
 
 {{text("While looking for ways to exploit the machine, I downloaded <code class='bg-gray-300 rounded-md px-1'>pspy64</code> using a Python server and wget to see if any commands get run in the background.")}}
 
-{{image("../../static/writeups/backtrack/000009.jpg")}}
+{{image("../../static/writeups/backtrack/images/000009.jpg")}}
 
 {{text("Root switches user to <code class='bg-gray-300 rounded-md px-1'>orville</code> and runs a couple of commands as him.")}}
 
@@ -203,7 +203,7 @@ tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      
 
 {{text("We create a <code class='bg-gray-300 rounded-md px-1'>.py</code> file with the following code.")}}
 
-{{image("../../static/writeups/backtrack/000010.jpg")}}
+{{image("../../static/writeups/backtrack/images/000010.jpg")}}
 
 {{text("Now when we run <code class='bg-gray-300 rounded-md px-1'>echo root.py >> .bashrc</code> and wait a while, we should be able to run bash as root and get our final flag.")}}
 
