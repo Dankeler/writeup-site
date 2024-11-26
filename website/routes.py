@@ -1,8 +1,9 @@
 import os
-from flask import render_template, render_template_string, Blueprint, redirect, g, request
-from .models import Writeup
 import markdown
 import sqlite3
+from flask import render_template, render_template_string, Blueprint, redirect, g, request
+from .models import Writeup
+from sqlalchemy import desc
 
 app = Blueprint('app', __name__)
 
@@ -16,9 +17,13 @@ def home():
     selected_difficulties = request.form.getlist('difficulty') if request.method == 'POST' else []
 
     if selected_difficulties:
-        writeups = Writeup.query.filter(Writeup.difficulty.in_(selected_difficulties)).all()
+        writeups = Writeup.query.filter(Writeup.difficulty.in_(selected_difficulties))
 
     return render_template("home.html", writeups=writeups)
+
+@app.route('/about')
+def about():
+    return render_template("about.html")
 
 @app.route('/writeup')
 def writeups():
@@ -59,4 +64,3 @@ def search():
     connection.close()
     
     return render_template("home.html", writeups=writeups)
-

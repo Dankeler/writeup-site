@@ -10,13 +10,18 @@ module.exports = {
       spacing: {
         '1/8': '12.5%',
         '1/10': '10%',
-        'delay-25': 'transition-delay-25',
         '46': '46px',
+      },
+      width: {
+        '18': '18px',
+      },
+      height: {
+        '18': '18px',
       },
       transitionDelay: {
         '20': '20ms',
-      }
-    }
+      },
+    },
   },
   plugins: [
     require('flowbite/plugin')

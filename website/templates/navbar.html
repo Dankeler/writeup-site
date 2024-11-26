@@ -13,13 +13,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Quicksand:wght@300..700&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 </head>
 
-<body class="bg-gray-100 red-hat-display">
+<body class="bg-gray-100">
     <div class="flex-1 flex flex-col h-full">
-        <nav class="shadow-sm w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 p-4 flex items-center justify-between relative">
-            <div class="flex justify-between gap-4 items-center ml-3">
-                <img src="../static/images/xd.png" class="object-contain w-6 h-6">
-                <a>logo</a>
-            </div>
+        <nav class="shadow-sm w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 flex items-center justify-between relative">
+            <a href="/" class="flex justify-between items-center pl-3 pr-6 z-50 hover:bg-gray-300 rounded-r-2xl transition ease-in-out duration-200" id="hover-cat">
+                <img id="hover-image-cat" src="/static/writeups/logo.jpg" alt="Logo" class="object-contain w-16 h-16">
+                <p class="font-semibold">Writeups</p>
+            </a>
             <div class="absolute inset-x-0">
                 <form class="max-w-md mx-auto relative" action="/search" method="POST">
                     <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -34,12 +34,10 @@
                     </div>
                 </form>
             </div>
-            <div class="flex items-center ml-auto">
-                <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
-                    <span class="sr-only">Open user menu</span>
-                    <img class="w-8 h-8 rounded-full" alt="jakieslogo?" src="">
-                </button>
-            </div>
+            <a class="flex items-center pr-3 z-50 gap-2 pl-6 pr-3 hover:bg-gray-300 rounded-l-2xl transition ease-in-out duration-200" id="hover-avatar" href="/about">
+                <span class="font-semibold">About me</span>
+                <img class="w-16 h-16" src="/static/writeups/avatar.jpg" id="hover-image-avatar">
+            </a>
         </nav>
         
         <div class="flex justify-center mb-16 mt-8 mx-8 md:mx-16 lg:mx-32 h-full">
@@ -47,10 +45,17 @@
         </div>
     </div>
 </body>
-    <script>
+<script>
     document.addEventListener("DOMContentLoaded", function() {
         const checkboxes = document.querySelectorAll("input[name='difficulty']");
         const writeups = document.querySelectorAll(".writeup");
+
+        const hoverImageCat = document.getElementById("hover-image-cat");
+        const hoverCat = document.getElementById("hover-cat");
+
+        const hoverImageAvatar = document.getElementById("hover-image-avatar");
+        const hoverAvatar = document.getElementById("hover-avatar");
+
 
         function filterWriteups() {
             const activeDifficulties = Array.from(checkboxes)
@@ -64,6 +69,22 @@
 
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener("change", filterWriteups);
+        });
+
+        hoverCat.addEventListener("mouseenter", function() {
+            hoverImageCat.src = "/static/writeups/logo.gif";
+        });
+
+        hoverCat.addEventListener("mouseleave", function() {
+            hoverImageCat.src = "/static/writeups/logo.jpg";
+        });
+
+        hoverAvatar.addEventListener("mouseenter", function() {
+            hoverImageAvatar.src = "/static/writeups/avatar.gif";
+        });
+
+        hoverAvatar.addEventListener("mouseleave", function() {
+            hoverImageAvatar.src = "/static/writeups/avatar.jpg";
         });
 
         filterWriteups();
