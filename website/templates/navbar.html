@@ -17,7 +17,7 @@
     <div class="flex-1 flex flex-col h-full">
         <nav class="shadow-sm w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 flex items-center justify-between relative">
             <a href="/" class="flex justify-between items-center pl-3 pr-6 z-50 hover:bg-gray-300 rounded-r-2xl transition ease-in-out duration-200" id="hover-cat">
-                <img id="hover-image-cat" src="/static/writeups/logo.jpg" alt="Logo" class="object-contain w-16 h-16">
+                <img id="hover-image-cat" src="/static/writeups/images/logo.jpg" alt="Logo" class="object-contain w-16 h-16">
                 <p class="font-semibold">Writeups</p>
             </a>
             <div class="absolute inset-x-0">
@@ -36,7 +36,7 @@
             </div>
             <a class="flex items-center pr-3 z-50 gap-2 pl-6 pr-3 hover:bg-gray-300 rounded-l-2xl transition ease-in-out duration-200" id="hover-avatar" href="/about">
                 <span class="font-semibold">About me</span>
-                <img class="w-16 h-16" src="/static/writeups/avatar.jpg" id="hover-image-avatar">
+                <img class="w-16 h-16" src="/static/writeups/images/avatar.jpg" id="hover-image-avatar">
             </a>
         </nav>
         
@@ -72,19 +72,19 @@
         });
 
         hoverCat.addEventListener("mouseenter", function() {
-            hoverImageCat.src = "/static/writeups/logo.gif";
+            hoverImageCat.src = "/static/writeups/images/logo.gif";
         });
 
         hoverCat.addEventListener("mouseleave", function() {
-            hoverImageCat.src = "/static/writeups/logo.jpg";
+            hoverImageCat.src = "/static/writeups/images/logo.jpg";
         });
 
         hoverAvatar.addEventListener("mouseenter", function() {
-            hoverImageAvatar.src = "/static/writeups/avatar.gif";
+            hoverImageAvatar.src = "/static/writeups/images/avatar.gif";
         });
 
         hoverAvatar.addEventListener("mouseleave", function() {
-            hoverImageAvatar.src = "/static/writeups/avatar.jpg";
+            hoverImageAvatar.src = "/static/writeups/images/avatar.jpg";
         });
 
         filterWriteups();
