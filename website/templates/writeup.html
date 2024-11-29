@@ -37,7 +37,7 @@
                 {{difficulty(writeup.difficulty, writeup.posted.strftime('%b %d, %Y'))}}
 
                 <div class="flex justify-start mt-1">
-                    {{link("https://tryhackme.com/r/room/whiterose", "https://tryhackme.com/r/favicon.png", "Whiterose")}}
+                    {{link("https://tryhackme.com/r/room/" + writeup.url, "https://tryhackme.com/r/favicon.png", writeup.name)}}
                 </div>
                 <div class="border-b pb-2 mb-5 w-full">
                     {% for tag in writeup.tags %}
