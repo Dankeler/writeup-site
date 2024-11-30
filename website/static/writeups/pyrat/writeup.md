@@ -20,7 +20,7 @@ PORT     STATE SERVICE
 
 {{header("Shell as www-data", "shell-as-www-data")}}
 
-{{text("Initially, I tried using Burp Suite, but it didn't lead anywhere. Then, I used netcat to connect to the address. Since it was stated that <code class='bg-gray-300 rounded-md px-1'>a HTTP response leads to a Python code vulnerability</code>, I immediately attempted to run Python code.")}}
+{{text("Initially, I tried using Burp Suite, but it didn't lead anywhere. Then, I used netcat to connect to the address. Since it was stated that <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>a HTTP response leads to a Python code vulnerability</code>, I immediately attempted to run Python code.")}}
 
 {{console("nc 10.10.209.122 8000", "l
 name 'l' is not defined
@@ -30,19 +30,19 @@ print(2)
 2
 ")}}
 
-{{text("Since it worked, I used a Python reverse shell from <code class='bg-gray-300 rounded-md px-1'>revshells.com</code> and attempted to get it running.")}}
+{{text("Since it worked, I used a Python reverse shell from <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>revshells.com</code> and attempted to get it running.")}}
 
 {{image("../../static/writeups/pyrat/images/000002.jpg")}}
 
-{{text("This worked, and now we were the <code class='bg-gray-300 rounded-md px-1'>www-data</code> user.")}}
+{{text("This worked, and now we were the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>www-data</code> user.")}}
 
 {{header("Shell as think", "shell-as-think")}}
 
-{{text("While exploring the system, I discovered a <code class='bg-gray-300 rounded-md px-1'>.git</code> directory inside <code class='bg-gray-300 rounded-md px-1'>/opt/dev</code>.")}}
+{{text("While exploring the system, I discovered a <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>.git</code> directory inside <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/opt/dev</code>.")}}
 
-{{text("The challenge description mentioned we should <code class='bg-gray-300 rounded-md px-1'>explore the application's older version</code>, so I decided to investigate further.")}}
+{{text("The challenge description mentioned we should <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>explore the application's older version</code>, so I decided to investigate further.")}}
 
-{{text("Inside the <code class='bg-gray-300 rounded-md px-1'>.git</code> directory, I came across an old <code class='bg-gray-300 rounded-md px-1'>config</code> file containing user credentials.")}}
+{{text("Inside the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>.git</code> directory, I came across an old <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>config</code> file containing user credentials.")}}
 
 {{console("cat config", "[core]
         repositoryformatversion = 0
@@ -60,11 +60,11 @@ print(2)
         username = think
         password = [REDACTED]")}}
 
-{{text("We switched users to <code class='bg-gray-300 rounded-md px-1'>think</code> and successfully logged in using the newly obtained password.")}}
+{{text("We switched users to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>think</code> and successfully logged in using the newly obtained password.")}}
 
 {{header("Shell as root", "shell-as-root")}}
 
-{{text("Next, we navigated to <code class='bg-gray-300 rounded-md px-1'>/opt/dev</code> to check for the older version of the application.")}}
+{{text("Next, we navigated to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/opt/dev</code> to check for the older version of the application.")}}
 
 {{console("git status", "On branch master
 Changes not staged for commit:
@@ -74,7 +74,7 @@ Changes not staged for commit:
 
 no changes added to commit (use 'git add' and/or 'git commit -a')")}}
 
-{{text("We noticed that <code class='bg-gray-300 rounded-md px-1'>pyrat.py.old</code> had been deleted. Let's attempt to restore that file.")}}
+{{text("We noticed that <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>pyrat.py.old</code> had been deleted. Let's attempt to restore that file.")}}
 
 {{image("../../static/writeups/pyrat/images/000003.jpg")}}
 
@@ -102,15 +102,15 @@ def shell(client_socket):
         os.dup2(client_socket.fileno(), 2)
         pty.spawn('/bin/sh')")}}
 
-{{text("We can see that if <code class='bg-gray-300 rounded-md px-1'>data == 'shell'</code>, the <code class='bg-gray-300 rounded-md px-1'>shell</code> function is executed, which spawns a shell.")}}
+{{text("We can see that if <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>data == 'shell'</code>, the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>shell</code> function is executed, which spawns a shell.")}}
 
-{{text("Let's try connecting to our target again using netcat and input <code class='bg-gray-300 rounded-md px-1'>shell</code>.")}}
+{{text("Let's try connecting to our target again using netcat and input <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>shell</code>.")}}
 
 {{image("../../static/writeups/pyrat/images/000004.jpg")}}
 
-{{text("It works, but unfortunately, we are still the <code class='bg-gray-300 rounded-md px-1'>www-data</code> user.")}}
+{{text("It works, but unfortunately, we are still the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>www-data</code> user.")}}
 
-{{text("It seems that the key is to correctly guess the <code class='bg-gray-300 rounded-md px-1'>some_endpoint</code>.")}}
+{{text("It seems that the key is to correctly guess the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>some_endpoint</code>.")}}
 
 {{text("To be honest, I didn't feel like writing a script for it, so I started guessing since this is an easy challenge, and I got lucky.")}}
 
@@ -162,7 +162,7 @@ if __name__ == '__main__':
 
 {{image("../../static/writeups/pyrat/images/000006.jpg")}}
 
-{{text("After logging in as admin, we gained root access. Now, we just need to go to <code class='bg-gray-300 rounded-md px-1'>/root</code> and retrieve our flag.")}}
+{{text("After logging in as admin, we gained root access. Now, we just need to go to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/root</code> and retrieve our flag.")}}
 
 {{image("../../static/writeups/pyrat/images/000007.jpg")}}
 

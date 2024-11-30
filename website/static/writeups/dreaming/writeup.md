@@ -55,11 +55,11 @@ Progress: 4614 / 4615 (99.98%)
 Finished
 ===============================================================")}}
 
-{{text("We find the <code class='bg-gray-300 rounded-md px-1'>app</code> directory in which we find a <code class='bg-gray-300 rounded-md px-1'>pluck</code> folder.")}}
+{{text("We find the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>app</code> directory in which we find a <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>pluck</code> folder.")}}
 
 {{image("../../static/writeups/dreaming/images/000002.jpg")}}
 
-{{text("By clicking on the folder, we get redirected to <code class='bg-gray-300 rounded-md px-1'>/app/pluck-4.7.13/?file=dreaming</code> page that has nothing of interest.")}}
+{{text("By clicking on the folder, we get redirected to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/app/pluck-4.7.13/?file=dreaming</code> page that has nothing of interest.")}}
 
 {{image("../../static/writeups/dreaming/images/000003.jpg")}}
 
@@ -94,11 +94,11 @@ Progress: 4614 / 4615 (99.98%)
 Finished
 ===============================================================")}}
 
-{{text("I tried going to <code class='bg-gray-300 rounded-md px-1'>/admin.php</code> but instead I got redirected to <code class='bg-gray-300 rounded-md px-1'>login.php</code> because I wasn't logged in. It contained a form with a password field into which I typed most common passwords I could think of and <code class='bg-gray-300 rounded-md px-1'>password</code> as password worked.")}}
+{{text("I tried going to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/admin.php</code> but instead I got redirected to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>login.php</code> because I wasn't logged in. It contained a form with a password field into which I typed most common passwords I could think of and <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>password</code> as password worked.")}}
 
 {{image("../../static/writeups/dreaming/images/000004.jpg")}}
 
-{{text("After that I started searching for an exploit for <code class='bg-gray-300 rounded-md px-1'>pluck 4.7.13</code>")}}
+{{text("After that I started searching for an exploit for <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>pluck 4.7.13</code>")}}
 
 {{link("https://www.exploit-db.com/exploits/49909", "https://www.exploit-db.com/favicon.ico", "Pluck CMS 4.7.13 - File Upload Remote Code Execution (Authenticated)")}}
 
@@ -116,15 +116,15 @@ Uploaded Webshell to: http://10.10.2.104:80/app/pluck-4.7.13/files/shell.phar")}
 
 {{header("Shell as lucien", "shell-as-lucien")}}
 
-{{text("For better access we can get a <code class='bg-gray-300 rounded-md px-1'>nc mkfifo</code> reverse shell from <code class='bg-gray-300 rounded-md px-1'>revshells.com</code>, setup a netcat listener and execute it. Then we can upgrade our shell.")}}
+{{text("For better access we can get a <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>nc mkfifo</code> reverse shell from <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>revshells.com</code>, setup a netcat listener and execute it. Then we can upgrade our shell.")}}
 
 {{image("../../static/writeups/dreaming/images/000006.jpg")}}
 
-{{text("I was looking through the system files when I found a <code class='bg-gray-300 rounded-md px-1'>test.py</code> file inside of <code class='bg-gray-300 rounded-md px-1'>/opt</code> directory.")}}
+{{text("I was looking through the system files when I found a <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>test.py</code> file inside of <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/opt</code> directory.")}}
 
 {{image("../../static/writeups/dreaming/images/000007.jpg")}}
 
-{{text("I already knew a user <code class='bg-gray-300 rounded-md px-1'>lucien</code> existed from reading <code class='bg-gray-300 rounded-md px-1'>/etc/passwd</code> file so I wondered if he reused his passwords and I was right.")}}
+{{text("I already knew a user <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>lucien</code> existed from reading <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/etc/passwd</code> file so I wondered if he reused his passwords and I was right.")}}
 
 {{image("../../static/writeups/dreaming/images/000008.jpg")}}
 
@@ -139,7 +139,7 @@ Uploaded Webshell to: http://10.10.2.104:80/app/pluck-4.7.13/files/shell.phar")}
 User lucien may run the following commands on dreaming:
     (death) NOPASSWD: /usr/bin/python3 /home/death/getDreams.py")}}
 
-{{text("We can run <code class='bg-gray-300 rounded-md px-1'>/home/death/getDreams.py</code> with python as the <code class='bg-gray-300 rounded-md px-1'>death</code> user. I previously found a file with the same name inside of the <code class='bg-gray-300 rounded-md px-1'>/opt</code> directory.")}}
+{{text("We can run <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/home/death/getDreams.py</code> with python as the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>death</code> user. I previously found a file with the same name inside of the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/opt</code> directory.")}}
 
 {{console("cat /opt/getDreams.py", "import mysql.connector
 import subprocess
@@ -203,7 +203,7 @@ Carol + Becoming a successful entrepreneur
 
 Dave + Becoming a professional musician")}}
 
-{{text("By reading <code class='bg-gray-300 rounded-md px-1'>.bash_history</code> file inside of our home directory, we find a password to MySQL database.")}}
+{{text("By reading <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>.bash_history</code> file inside of our home directory, we find a password to MySQL database.")}}
 
 {{text("We find the same data that gets outputted when we run the script.")}}
 
@@ -211,19 +211,19 @@ Dave + Becoming a professional musician")}}
 
 {{text("If we add our own command in here, it should get executed when we run the script.")}}
 
-{{text("We add a new value into the table that will read the <code class='bg-gray-300 rounded-md px-1'>/home/death/getDreams.py</code> file to us since it should contain user's <code class='bg-gray-300 rounded-md px-1'>death</code> password.")}}
+{{text("We add a new value into the table that will read the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/home/death/getDreams.py</code> file to us since it should contain user's <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>death</code> password.")}}
 
 {{console("INSERT INTO dreams (dreamer, dream) VALUES ('password', '$(cat /home/death/getDreams.py)');")}}
 
 {{text("Now when we run the script again, it should read the whole file to us including the password.")}}
 
-{{text("We use that password and log in as <code class='bg-gray-300 rounded-md px-1'>death</code>.")}}
+{{text("We use that password and log in as <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>death</code>.")}}
 
 {{image("../../static/writeups/dreaming/images/000010.jpg")}}
 
 {{header("Last flag", "last-flag")}}
 
-{{text("I downloaded <code class='bg-gray-300 rounded-md px-1'>pspy64</code> in order to check for any background processes and found this.")}}
+{{text("I downloaded <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>pspy64</code> in order to check for any background processes and found this.")}}
 
 {{image("../../static/writeups/dreaming/images/000011.jpg")}}
 
@@ -237,11 +237,11 @@ print('The kingdom backup has been done!')")}}
 
 {{text("This script just creates a backup by copying files, nothing exploitable. I knew there had to be something so i kept looking.")}}
 
-{{text("I focused on the <code class='bg-gray-300 rounded-md px-1'>shutil</code> library that gets imported.")}}
+{{text("I focused on the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>shutil</code> library that gets imported.")}}
 
-{{text("I found out it belonged to the <code class='bg-gray-300 rounded-md px-1'>death</code> group so we should be able to edit it.")}}
+{{text("I found out it belonged to the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>death</code> group so we should be able to edit it.")}}
 
-{{text("I added a line that will add all the permissions to the last flag inside of the <code class='bg-gray-300 rounded-md px-1'>copy2</code> function that the script imports.")}}
+{{text("I added a line that will add all the permissions to the last flag inside of the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>copy2</code> function that the script imports.")}}
 
 {{image("../../static/writeups/dreaming/images/000012.jpg")}}
 

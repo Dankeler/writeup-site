@@ -3,7 +3,7 @@
 {% extends "navbar.html" %}
 {% block content %}
 
-<div class="mt-5 flex px-16 w-full">
+<div class="mt-5 flex px-16 w-full h-full">
     <div class="w-full">
         <div class="flex justify-between items-start">
             <div class="w-4/5">
@@ -11,13 +11,13 @@
                     <nav class="flex" aria-label="Breadcrumb">
                         <ol class="inline-flex items-center space-x-1 md:space-x-1 rtl:space-x-reverse">
                         <li class="inline-flex items-center">
-                            <a href="/" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                            <a href="/" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-white">
                             Home
                             </a>
                         </li>
                         <li aria-current="page">
                             <div class="flex items-center">
-                            <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                            <svg class="rtl:rotate-180 w-3 h-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                             </svg>
                             <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">{{writeup.name}}</span>
@@ -37,7 +37,7 @@
                 {{difficulty(writeup.difficulty, writeup.posted.strftime('%b %d, %Y'))}}
 
                 <div class="flex justify-start mt-1">
-                    {{link("https://tryhackme.com/r/room/" + writeup.url, "https://tryhackme.com/r/favicon.png", writeup.name)}}
+                    {{link("https://tryhackme.com/r/room/" + writeup.tryhackme_url, "https://tryhackme.com/r/favicon.png", writeup.name)}}
                 </div>
                 <div class="border-b pb-2 mb-5 w-full">
                     {% for tag in writeup.tags %}
@@ -47,10 +47,10 @@
             </div>
 
             <div class="w-1/5 flex flex-col items-center mt-5 lg:mt-0 pl-6">
-                <div class="bg-gray-200 p-3 w-full">
+                <div class="bg-gray-200 p-3 w-full dark:bg-neutral-800 rounded-md">
                     <p class="text-center font-bold">Latest Writeups</p>
                     <ul>
-                        <li>
+                        <li class="dark:text-white">
                             <a class="ml-3 font-semibold" href="/writeup/Whiterose">
                                 TryHackMe: Whiterose
                             </a>
@@ -66,9 +66,9 @@
             </div>
 
             <div class="w-1/5 flex flex-col items-center pl-6 sticky top-20 h-screen">
-                <div class="bg-gray-200 p-3 w-full">
+                <div class="bg-gray-200 dark:bg-neutral-800 p-3 w-full rounded-md">
                     <p class="text-center font-bold">Contents</p>
-                    <ul>
+                    <ul class="dark:text-white">
                         {% for list in writeup.lists %}
                             {{navi(list.href, list.name)}}
                         {% endfor %}

@@ -10,10 +10,10 @@ writeup_tag = db.Table(
 )
 
 class List(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False)
     href = db.Column(db.String)
-    
+
     writeup_url = db.Column(db.String, db.ForeignKey('writeup.url'), nullable=False)
     writeup = db.relationship('Writeup', back_populates='lists')
 
@@ -28,7 +28,7 @@ class Writeup(db.Model):
     name = db.Column(db.String)
     posted = db.Column(db.DateTime(timezone=True), default=func.now())
     description = db.Column(db.String)
-    md_file = db.Column(db.String, nullable=False)
+    tryhackme_url = db.Column(db.String)
     difficulty = db.Column(db.String)
 
     lists = db.relationship('List', back_populates='writeup')

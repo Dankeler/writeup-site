@@ -20,29 +20,29 @@ Nmap done: 1 IP address (1 host up) scanned in 62.74 seconds")}}
 
 {{list(['22 (SSH)', '6048 (x11)', '8000 (HTTP)'])}}
 
-{{text("When visiting <code class='bg-gray-300 rounded-md px-1'>http://10.10.140.195:8000</code> we get redirected to <code class='bg-gray-300 rounded-md px-1'>http://airplane.thm:8000/?page=index.html</code> and get a page about airplanes.")}}
+{{text("When visiting <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>http://10.10.140.195:8000</code> we get redirected to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>http://airplane.thm:8000/?page=index.html</code> and get a page about airplanes.")}}
 
-{{text("Remember to add <code class='bg-gray-300 rounded-md px-1'>MACHINE_IP airplane.thm</code> to <code class='bg-gray-300 rounded-md px-1'>/etc/hosts</code> otherwise it won't load.")}}
+{{text("Remember to add <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>MACHINE_IP airplane.thm</code> to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/etc/hosts</code> otherwise it won't load.")}}
 
 {{image("../../static/writeups/airplane/images/000001.jpg")}}
 
-{{text("What instantly caught my interest was the URL parameter. First thing that came to my mind was <code class='bg-gray-300 rounded-md px-1'>LFI</code>.")}}
+{{text("What instantly caught my interest was the URL parameter. First thing that came to my mind was <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>LFI</code>.")}}
 
-{{text("I began checking for directory traversal and I was successful trying to get to <code class='bg-gray-300 rounded-md px-1'>/etc/passwd</code>.")}}
+{{text("I began checking for directory traversal and I was successful trying to get to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/etc/passwd</code>.")}}
 
 {{image("../../static/writeups/airplane/images/000002.jpg")}}
 
-{{text("We now have the <code class='bg-gray-300 rounded-md px-1'>/etc/passwd</code> file, and while reading it we find two users - <code class='bg-gray-300 rounded-md px-1'>carlos</code> and <code class='bg-gray-300 rounded-md px-1'>hudson</code>.")}}
+{{text("We now have the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/etc/passwd</code> file, and while reading it we find two users - <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>carlos</code> and <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>hudson</code>.")}}
 
 {{text("Unfortunately I was unable to get a flag from these users directories using this method.")}}
 
-{{text("While looking through the <code class='bg-gray-300 rounded-md px-1'>/proc/self</code> directory which contains information about the currently running process, I read the  <code class='bg-gray-300 rounded-md px-1'>cmdline</code> file which contained the command used to run the website.")}}
+{{text("While looking through the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/proc/self</code> directory which contains information about the currently running process, I read the  <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>cmdline</code> file which contained the command used to run the website.")}}
 
 {{console("cat cmdline", "/usr/bin/python3app.py")}}
 
-{{text("We see that it was run using <code class='bg-gray-300 rounded-md px-1'>python</code> and the file name is <code class='bg-gray-300 rounded-md px-1'>app.py</code>. We should look for that file.")}}
+{{text("We see that it was run using <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>python</code> and the file name is <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>app.py</code>. We should look for that file.")}}
 
-{{text("We find it in <code class='bg-gray-300 rounded-md px-1'>/proc/self/cwd/app.py</code> and are able to read the source code.")}}
+{{text("We find it in <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/proc/self/cwd/app.py</code> and are able to read the source code.")}}
 
 {{console("", "from flask import Flask, send_file, redirect, render_template, request
 import os.path
@@ -85,58 +85,58 @@ if __name__ == '__main__':
 
 {{header("Shell as hudson", "shell-as-hudson")}}
 
-{{text("For that we need that service <code class='bg-gray-300 rounded-md px-1'>PID</code> so we can pass it to the <code class='bg-gray-300 rounded-md px-1'>/proc/[PID]/cmdline</code> directory.")}}
+{{text("For that we need that service <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>PID</code> so we can pass it to the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/proc/[PID]/cmdline</code> directory.")}}
 
-{{text("I used <code class='bg-gray-300 rounded-md px-1'>Intruder</code> in Burp Suite and searched for port <code class='bg-gray-300 rounded-md px-1'>6048</code>.")}}
+{{text("I used <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>Intruder</code> in Burp Suite and searched for port <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>6048</code>.")}}
 
 {{image("../../static/writeups/airplane/images/000003.jpg")}}
 
-{{text("The correct PID was <code class='bg-gray-300 rounded-md px-1'>525</code>.")}}
+{{text("The correct PID was <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>525</code>.")}}
 
-{{text("I used <code class='bg-gray-300 rounded-md px-1'>metasploit</code> in order to exploit the <code class='bg-gray-300 rounded-md px-1'>gdbserver</code> running on that port.")}}
+{{text("I used <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>metasploit</code> in order to exploit the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>gdbserver</code> running on that port.")}}
 
 {{image("../../static/writeups/airplane/images/000004.jpg")}}
 
 {{text("After setting correct options, I ran the exploit.")}}
 
-{{text("You have to run <code class='bg-gray-300 rounded-md px-1'>set target 1</code> and <code class='bg-gray-300 rounded-md px-1'>set payload linux/x64/meterpreter/reverse_tcp</code> because we are attacking a 64-bit machine.")}}
+{{text("You have to run <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>set target 1</code> and <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>set payload linux/x64/meterpreter/reverse_tcp</code> because we are attacking a 64-bit machine.")}}
 
 {{image("../../static/writeups/airplane/images/000005.jpg")}}
 
-{{text("After that use <code class='bg-gray-300 rounded-md px-1'>shell</code> to gain a shell.")}}
+{{text("After that use <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>shell</code> to gain a shell.")}}
 
-{{text("It worked and now we are user <code class='bg-gray-300 rounded-md px-1'>hudson</code>.")}}
+{{text("It worked and now we are user <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>hudson</code>.")}}
 
 {{header("Shell as carlos", "shell-as-carlos")}}
 
-{{text("We look for binaries with <code class='bg-gray-300 rounded-md px-1'>SUID</code> bit set.")}}
+{{text("We look for binaries with <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>SUID</code> bit set.")}}
 
-{{text("We find <code class='bg-gray-300 rounded-md px-1'>find</code> binary that is owned by user <code class='bg-gray-300 rounded-md px-1'>carlos</code>.")}}
+{{text("We find <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>find</code> binary that is owned by user <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>carlos</code>.")}}
 
 {{console("find / -perm -u=s -type f 2>/dev/null", "/usr/bin/find
 ...")}}
 
-{{text("We search for it on <code class='bg-gray-300 rounded-md px-1'>GTFOBins</code>.")}}
+{{text("We search for it on <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700 dark:bg-neutral-700'>GTFOBins</code>.")}}
 
 {{link("https://gtfobins.github.io/gtfobins/find/", "https://gtfobins.github.io/assets/logo.png", "find | GTFOBins")}}
 
-{{text("According to this if we run <code class='bg-gray-300 rounded-md px-1'>find . -exec /bin/sh -p \; -quit</code>, we should become the user <code class='bg-gray-300 rounded-md px-1'>carlos</code>.")}}
+{{text("According to this if we run <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>find . -exec /bin/sh -p \; -quit</code>, we should become the user <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>carlos</code>.")}}
 
 {{image("../../static/writeups/airplane/images/000007.jpg")}}
 
 {{header()}}
 
-{{text("We now can add our own key to <code class='bg-gray-300 rounded-md px-1'>/home/carlos/.ssh/authorized_keys</code> to get a better shell.")}}
+{{text("We now can add our own key to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/home/carlos/.ssh/authorized_keys</code> to get a better shell.")}}
 
-{{text("We generate a key pair with <code class='bg-gray-300 rounded-md px-1'>ssh-keygen</code> and add our public key.")}}
+{{text("We generate a key pair with <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>ssh-keygen</code> and add our public key.")}}
 
 {{image("../../static/writeups/airplane/images/000008.jpg")}}
 
-{{text("We are now able to log in via SSH with our private key as user <code class='bg-gray-300 rounded-md px-1'>carlos</code>.")}}
+{{text("We are now able to log in via SSH with our private key as user <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>carlos</code>.")}}
 
 {{header("Shell as root", "shell-as-root")}}
 
-{{text("We run <code class='bg-gray-300 rounded-md px-1'>sudo -l</code> to check for sudo privilages.")}}
+{{text("We run <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>sudo -l</code> to check for sudo privilages.")}}
 
 {{console("sudo -l", "Matching Defaults entries for carlos on airplane:
     env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
@@ -144,15 +144,15 @@ if __name__ == '__main__':
 User carlos may run the following commands on airplane:
     (ALL) NOPASSWD: /usr/bin/ruby /root/*.rb")}}
 
-{{text("We can run any <code class='bg-gray-300 rounded-md px-1'>.rb</code> file in <code class='bg-gray-300 rounded-md px-1'>/root</code> directory using <code class='bg-gray-300 rounded-md px-1'>/usr/bin/ruby</code>.")}}
+{{text("We can run any <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>.rb</code> file in <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/root</code> directory using <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/usr/bin/ruby</code>.")}}
 
 {{text("We are easily able to exploit that using path travesal.")}}
 
-{{text("We create a file that will add the<code class='bg-gray-300 rounded-md px-1'>SUID</code> bit to bash when run and execute our privilaged command.")}}
+{{text("We create a file that will add the<code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>SUID</code> bit to bash when run and execute our privilaged command.")}}
 
 {{image("../../static/writeups/airplane/images/000009.jpg")}}
 
-{{text("Now we use <code class='bg-gray-300 rounded-md px-1'>bash -p</code> to become root and read the final flag.")}}
+{{text("Now we use <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>bash -p</code> to become root and read the final flag.")}}
 
 {{image("../../static/writeups/airplane/images/000010.jpg")}}
 

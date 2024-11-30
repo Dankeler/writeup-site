@@ -12,16 +12,16 @@
             </svg>
         </button>
 
-        <div id="dropdown" class="hidden w-36 mt-44 absolute z-50 opacity-0 scale-y-0 origin-top bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 transition-all duration-300 ease-in-out">
+        <div id="dropdown" class="hidden w-36 mt-44 absolute z-50 opacity-0 scale-y-0 origin-top bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-neutral-800 transition-all duration-300 ease-in-out">
             <form id="difficultyForm">
-                <label class="block p-2 border-b hover:bg-gray-200 transition">
-                    <input class="focus:ring-0 focus:ring-offset-0 z-50 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 focus:outline-none" type="checkbox" name="difficulty" value="Easy" checked> Easy
+                <label class="select-none block p-2 border-b rounded-t-lg hover:bg-gray-200 dark:hover:bg-neutral-700 transition dark:border-neutral-700">
+                    <input class="focus:ring-0 focus:ring-offset-0 z-50 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-neutral-700 focus:outline-none" type="checkbox" name="difficulty" value="Easy" checked> Easy
                 </label>
-                <label class="block p-2 border-b hover:bg-gray-200 transition">
-                    <input class="focus:ring-0 focus:ring-offset-0 z-50 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 focus:outline-none" type="checkbox" name="difficulty" value="Medium" checked> Medium
+                <label class="select-none block p-2 border-b hover:bg-gray-200 transition dark:hover:bg-neutral-700 dark:border-neutral-700">
+                    <input class="focus:ring-0 focus:ring-offset-0 z-50 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-neutral-700 focus:outline-none" type="checkbox" name="difficulty" value="Medium" checked> Medium
                 </label>
-                <label class="block p-2 hover:bg-gray-200 transition">
-                    <input class="focus:ring-0 focus:ring-offset-0 z-50 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 focus:outline-none" type="checkbox" name="difficulty" value="Hard" checked> Hard
+                <label class="select-none block p-2 rounded-b-lg hover:bg-gray-200 transition dark:hover:bg-neutral-700">
+                    <input class="focus:ring-0 focus:ring-offset-0 z-50 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-neutral-700 focus:outline-none" type="checkbox" name="difficulty" value="Hard" checked> Hard
                 </label>
             </form>
         </div>
@@ -30,10 +30,10 @@
     <div id="writeupsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-4 md:p-8">
         {% for writeup in writeups %}
         <div class="writeup transform transition ease-in-out hover:scale-105 duration-300 max-w-sm max-h-[500px]" data-difficulty="{{ writeup.difficulty }}">
-            <a href="/writeup/{{writeup.url}}" class="block bg-white border border-gray-200 rounded-lg shadow-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                <img class="pt-2 h-40 w-full object-contain rounded-t-lg md:rounded-none md:rounded-s-lg border-b md:border-b-0 md:border-r" src="/static/writeups/{{writeup.url}}/logo.jpg" alt="">
+            <a href="/writeup/{{writeup.url}}" class="dark:border-neutral-700 block bg-white border border-gray-200 rounded-lg shadow-xl hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700">
+                <img class="pt-2 h-40 w-full object-contain rounded-t-lg md:rounded-none md:rounded-s-lg border-b md:border-b-0" src="/static/writeups/{{writeup.url}}/logo.jpg" alt="">
                 <div class="p-4 flex flex-col justify-between h-full">
-                    <h5 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white flex justify-between items-center">
+                    <h5 class="text-xl font-medium text-gray-900 dark:text-white flex justify-between items-center">
                         {{writeup.name}}
                     </h5>
                     <div class="w-full">
