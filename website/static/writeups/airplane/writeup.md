@@ -116,7 +116,7 @@ if __name__ == '__main__':
 {{console("find / -perm -u=s -type f 2>/dev/null", "/usr/bin/find
 ...")}}
 
-{{text("We search for it on <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700 dark:bg-neutral-700'>GTFOBins</code>.")}}
+{{text("We search for it on <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>GTFOBins</code>.")}}
 
 {{link("https://gtfobins.github.io/gtfobins/find/", "https://gtfobins.github.io/assets/logo.png", "find | GTFOBins")}}
 
