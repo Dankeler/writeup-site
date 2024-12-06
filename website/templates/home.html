@@ -2,7 +2,6 @@
 {% block content %}
 {% from "macros.html" import difficulty %}
 
-
 <div class="w-full md:w-3/4">
     <div class="flex items-center justify-center">
         <button id="dropdownDefaultButton" class="font-semibold text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
@@ -15,13 +14,13 @@
         <div id="dropdown" class="hidden w-36 mt-44 absolute z-50 opacity-0 scale-y-0 origin-top bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-neutral-800 transition-all duration-300 ease-in-out">
             <form id="difficultyForm">
                 <label class="select-none block p-2 border-b rounded-t-lg hover:bg-gray-200 dark:hover:bg-neutral-700 transition dark:border-neutral-700">
-                    <input class="focus:ring-0 focus:ring-offset-0 z-50 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-neutral-700 focus:outline-none" type="checkbox" name="difficulty" value="Easy" checked> Easy
+                    <input class="filter-checkbox focus:ring-0 focus:ring-offset-0 z-50 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-neutral-700 focus:outline-none" type="checkbox" name="difficulty" value="Easy" checked> Easy
                 </label>
                 <label class="select-none block p-2 border-b hover:bg-gray-200 transition dark:hover:bg-neutral-700 dark:border-neutral-700">
-                    <input class="focus:ring-0 focus:ring-offset-0 z-50 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-neutral-700 focus:outline-none" type="checkbox" name="difficulty" value="Medium" checked> Medium
+                    <input class="filter-checkbox focus:ring-0 focus:ring-offset-0 z-50 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-neutral-700 focus:outline-none" type="checkbox" name="difficulty" value="Medium" checked> Medium
                 </label>
                 <label class="select-none block p-2 rounded-b-lg hover:bg-gray-200 transition dark:hover:bg-neutral-700">
-                    <input class="focus:ring-0 focus:ring-offset-0 z-50 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-neutral-700 focus:outline-none" type="checkbox" name="difficulty" value="Hard" checked> Hard
+                    <input class="filter-checkbox focus:ring-0 focus:ring-offset-0 z-50 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-neutral-700 focus:outline-none" type="checkbox" name="difficulty" value="Hard" checked> Hard
                 </label>
             </form>
         </div>
@@ -29,7 +28,7 @@
 
     <div id="writeupsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-4 md:p-8">
         {% for writeup in writeups %}
-        <div class="writeup transform transition ease-in-out hover:scale-105 duration-300 max-w-sm max-h-[500px]" data-difficulty="{{ writeup.difficulty }}">
+        <div class="writeup hidden transform transition ease-in-out hover:scale-105 duration-300 max-w-sm max-h-[500px]" data-difficulty="{{ writeup.difficulty }}">
             <a href="/writeup/{{writeup.url}}" class="dark:border-neutral-700 block bg-white border border-gray-200 rounded-lg shadow-xl hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700">
                 <img class="pt-2 h-40 w-full object-contain rounded-t-lg md:rounded-none md:rounded-s-lg border-b md:border-b-0" src="/static/writeups/{{writeup.url}}/logo.jpg" alt="">
                 <div class="p-4 flex flex-col justify-between h-full">
@@ -45,12 +44,43 @@
         </div>
         {% endfor %}
     </div>
+
+    <div class="flex justify-center mt-4">
+        <button id="prevPage" class="hidden px-4 py-2 mx-2 text-white bg-blue-700 rounded">Previous</button>
+        <button id="nextPage" class="hidden px-4 py-2 mx-2 text-white bg-blue-700 rounded">Next</button>
+    </div>
 </div>
 
 <script>
     const dropdownButton = document.getElementById('dropdownDefaultButton');
     const dropdownMenu = document.getElementById('dropdown');
     const dropdownArrow = document.getElementById('dropdownArrow');
+    const writeups = Array.from(document.querySelectorAll('.writeup'));
+    const filters = Array.from(document.querySelectorAll('.filter-checkbox'));
+    const writeupsContainer = document.getElementById('writeupsContainer');
+    const prevPage = document.getElementById('prevPage');
+    const nextPage = document.getElementById('nextPage');
+    const ITEMS_PER_PAGE = 12;
+
+    let currentPage = 0;
+
+    function updatePagination() {
+        const selectedDifficulties = filters.filter(f => f.checked).map(f => f.value);
+        const filteredWriteups = writeups.filter(w => selectedDifficulties.includes(w.dataset.difficulty));
+        const totalPages = Math.ceil(filteredWriteups.length / ITEMS_PER_PAGE);
+
+        writeups.forEach(w => w.classList.add('hidden'));
+        filteredWriteups.slice(currentPage * ITEMS_PER_PAGE, (currentPage + 1) * ITEMS_PER_PAGE)
+            .forEach(w => w.classList.remove('hidden'));
+
+        prevPage.style.display = currentPage > 0 ? 'inline-block' : 'none';
+        nextPage.style.display = currentPage < totalPages - 1 ? 'inline-block' : 'none';
+    }
+
+    filters.forEach(filter => filter.addEventListener('change', () => {
+        currentPage = 0;
+        updatePagination();
+    }));
 
     dropdownButton.addEventListener('click', () => {
         dropdownMenu.classList.remove('hidden');
@@ -68,6 +98,19 @@
             dropdownArrow.classList.remove('rotate-180');
         }
     });
+
+    prevPage.addEventListener('click', () => {
+        currentPage = Math.max(0, currentPage - 1);
+        updatePagination();
+    });
+
+    nextPage.addEventListener('click', () => {
+        currentPage++;
+        updatePagination();
+    });
+
+    // Initialize pagination
+    updatePagination();
 </script>
 
 {% endblock %}
