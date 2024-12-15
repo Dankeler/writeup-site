@@ -30,12 +30,12 @@
         {% for writeup in writeups %}
         <div class="writeup hidden transform transition ease-in-out hover:scale-105 duration-300 max-w-sm max-h-[500px]" data-difficulty="{{ writeup.difficulty }}">
             <a href="/writeup/{{writeup.url}}" class="dark:border-neutral-700 block bg-white border border-gray-200 rounded-lg shadow-xl hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700">
-                <img class="pt-2 h-40 w-full object-contain rounded-t-lg md:rounded-none md:rounded-s-lg border-b md:border-b-0" src="/static/writeups/{{writeup.url}}/logo.jpg" alt="">
+                <img class="pt-2 h-40 w-full object-contain rounded-t-lg md:rounded-none md:rounded-s-lg border-b dark:border-neutral-600" src="/static/writeups/{{writeup.url}}/logo.jpg" alt="">
                 <div class="p-4 flex flex-col justify-between h-full">
-                    <h5 class="text-xl font-medium text-gray-900 dark:text-white flex justify-between items-center">
+                    <h5 class="text-xl font-medium text-gray-900 dark:text-white flex justify-between items-center truncate">
                         {{writeup.name}}
                     </h5>
-                    <div class="w-full">
+                    <div class="truncate">
                         {{difficulty(writeup.difficulty, writeup.posted.strftime('%b %d, %Y'))}}
                     </div>
                     <p class="text-gray-700 dark:text-gray-400 truncate">{{writeup.description}}</p>

@@ -27,8 +27,7 @@ name 'l' is not defined
 test
 name 'test' is not defined
 print(2)
-2
-")}}
+2")}}
 
 {{text("Since it worked, I used a Python reverse shell from <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>revshells.com</code> and attempted to get it running.")}}
 
