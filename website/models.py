@@ -26,9 +26,11 @@ class Tag(db.Model):
 class Writeup(db.Model):
     url = db.Column(db.String, primary_key=True)
     name = db.Column(db.String)
+    platform = db.Column(db.String)
     posted = db.Column(db.DateTime(timezone=True), default=func.now())
+    created = db.Column(db.DateTime(timezone=True))
     description = db.Column(db.String)
-    tryhackme_url = db.Column(db.String)
+    platform_url = db.Column(db.String)
     difficulty = db.Column(db.String)
 
     lists = db.relationship('List', back_populates='writeup')

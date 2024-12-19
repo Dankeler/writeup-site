@@ -60,17 +60,17 @@
     const writeupsContainer = document.getElementById('writeupsContainer');
     const prevPage = document.getElementById('prevPage');
     const nextPage = document.getElementById('nextPage');
-    const ITEMS_PER_PAGE = 12;
+    const itemsPerPage = 12;
 
     let currentPage = 0;
 
     function updatePagination() {
         const selectedDifficulties = filters.filter(f => f.checked).map(f => f.value);
         const filteredWriteups = writeups.filter(w => selectedDifficulties.includes(w.dataset.difficulty));
-        const totalPages = Math.ceil(filteredWriteups.length / ITEMS_PER_PAGE);
+        const totalPages = Math.ceil(filteredWriteups.length / itemsPerPage);
 
         writeups.forEach(w => w.classList.add('hidden'));
-        filteredWriteups.slice(currentPage * ITEMS_PER_PAGE, (currentPage + 1) * ITEMS_PER_PAGE)
+        filteredWriteups.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
             .forEach(w => w.classList.remove('hidden'));
 
         prevPage.style.display = currentPage > 0 ? 'inline-block' : 'none';

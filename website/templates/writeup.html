@@ -28,7 +28,11 @@
                 </div>
                 <div>
                     <h1 class="text-4xl">
+                        {% if writeup.platform == 'thm' %}
                         TryHackMe:
+                        {% else %}
+                        Hack The Box:
+                        {% endif %}
                         <span class="font-bold">{{writeup.name}}</span>
                     </h1>
                     <p class="text-xl mt-1">{{writeup.description}}</p>
@@ -37,7 +41,10 @@
                 {{difficulty(writeup.difficulty, writeup.posted.strftime('%b %d, %Y'))}}
 
                 <div class="flex justify-start mt-1">
-                    {{link("https://tryhackme.com/r/room/" + writeup.tryhackme_url, "https://tryhackme.com/r/favicon.png", writeup.name)}}
+                    {% if writeup.platform == 'thm' %}
+                    {{link("https://tryhackme.com/r/room/" + writeup.platform_url, "https://tryhackme.com/r/favicon.png", writeup.name)}}
+                    {% else %}
+                    {{link("https://www.hackthebox.com/machines/" + writeup.platform_url, "https://www.hackthebox.com/images/landingv3/favicon.png", writeup.name)}}
                 </div>
                 <div class="border-b pb-2 mb-5 w-full">
                     {% for tag in writeup.tags %}
