@@ -14,6 +14,9 @@ def db_connect():
 from flask import request, render_template
 from sqlalchemy import desc, asc
 
+from flask import request, render_template
+from math import ceil
+
 @app.route('/', methods=['GET'])
 def home():
     writeups_query = Writeup.query
@@ -40,13 +43,25 @@ def home():
     elif created == 'oldest':
         writeups_query = writeups_query.order_by(asc(Writeup.created))
 
-    writeups = writeups_query.order_by(Writeup.posted.desc()).all()
+    per_page = 12
+    page = request.args.get('page', 1, type=int)
+    total_writeups = writeups_query.count()
+    total_pages = ceil(total_writeups / per_page)
+
+    writeups = writeups_query.order_by(Writeup.posted.desc()).offset((page - 1) * per_page).limit(per_page).all()
+
+    pages = range(1, total_pages + 1)
 
     return render_template("home.html", writeups=writeups, 
-                           selected_difficulties=selected_difficulties, 
-                           selected_platforms=selected_platforms,
-                           posted=posted,
-                           created=created)
+                       selected_difficulties=selected_difficulties, 
+                       selected_platforms=selected_platforms,
+                       posted=posted,
+                       created=created,
+                       pages=pages,
+                       current_page=page,
+                       total_pages=total_pages)
+
+
 
 
 @app.route('/about')

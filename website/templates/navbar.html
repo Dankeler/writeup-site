@@ -34,15 +34,23 @@
                     </div>
                 </form>
             </div>
-            <div class="flex z-10">
-                <button id="theme-toggle" class="flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold transition-all duration-300 ease-in-out focus:outline-none hover:scale-105 hover:shadow-lg">
-                    <span class="mr-2">🌙</span> Toggle Theme
-                  </button>
+            <div class="flex z-10 items-center gap-3">
+                <div>
+                    <button id="theme-toggle" class="w-10 h-10 rounded-lg flex justify-center items-center border border-gray-400 dark:border-neutral-600 dark:hover:bg-gray-300 hover:bg-neutral-700 duration-300">
+                        <svg id="sun-icon" class="w-6 h-6 dark:text-gray-300 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="M12 3V4M12 20V21M4 12H3M6.31412 6.31412L5.5 5.5M17.6859 6.31412L18.5 5.5M6.31412 17.69L5.5 18.5001M17.6859 17.69L18.5 18.5001M21 12H20M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                        <svg id="moon-icon" class="w-6 h-6 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="M3.32031 11.6835C3.32031 16.6541 7.34975 20.6835 12.3203 20.6835C16.1075 20.6835 19.3483 18.3443 20.6768 15.032C19.6402 15.4486 18.5059 15.6834 17.3203 15.6834C12.3497 15.6834 8.32031 11.654 8.32031 6.68342C8.32031 5.50338 8.55165 4.36259 8.96453 3.32996C5.65605 4.66028 3.32031 7.89912 3.32031 11.6835Z" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </button>
+                </div>
+                                                    
                 <a class="flex items-center pr-3 gap-2 pl-6 hover:bg-gray-300 dark:hover:bg-neutral-700 rounded-l-2xl transition ease-in-out duration-200" id="hover-avatar" href="/about">
                     <span class="font-semibold">About me</span>
                     <img class="w-16 h-16" src="/static/writeups/images/avatar.jpg" id="hover-image-avatar">
                 </a>
-            </div>            
+            </div>                  
         </nav>
         <div class="flex justify-center mb-8 mt-8 mx-8 md:mx-16 lg:mx-32 h-full">
             {% block content %} {% endblock %}
@@ -50,26 +58,35 @@
     </div>
 </body>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const themeToggleButton = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
 
-    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-    } else {
-        document.documentElement.classList.remove('dark');
-    }
-
-    const themeToggleButton = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-
-    themeToggleButton.addEventListener('click', function() {
-        document.documentElement.classList.toggle('dark');
-
-        if (document.documentElement.classList.contains('dark')) {
-            localStorage.setItem('color-theme', 'dark');
-            themeIcon.textContent = 'light_mode';
+        if (localStorage.getItem('color-theme') === 'dark' || 
+            (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
         } else {
-            localStorage.setItem('color-theme', 'light');
-            themeIcon.textContent = 'dark_mode';
+            document.documentElement.classList.remove('dark');
+            sunIcon.classList.remove('hidden');
+            moonIcon.classList.add('hidden');
         }
+
+        themeToggleButton.addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+
+            if (document.documentElement.classList.contains('dark')) {
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+                localStorage.setItem('color-theme', 'dark');
+            } else {
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+                localStorage.setItem('color-theme', 'light');
+            }
+        });
     });
 
     document.addEventListener("DOMContentLoaded", function() {

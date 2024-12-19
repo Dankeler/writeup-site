@@ -23,6 +23,9 @@ module.exports = {
           '950': '#0a0a0a',
         },
       },
+      spacing: {
+        46: '11.5rem', // Adds mt-46
+      },
     },
   },
   plugins: [
