@@ -33,12 +33,12 @@
 {% macro difficulty(diff, posted) %}
 <div class="flex items-center space-x-3 py-1 rounded-lg">
     <div class="flex items-end gap-0.5 ">
-        <div class="h-3 w-1.5 {% if diff == 'Easy' or diff == 'Medium' or diff == 'Hard' %}bg-blue-600{% else %}bg-gray-500{% endif %} rounded-sm"></div>
-        <div class="h-5 w-1.5 {% if diff == 'Medium' or diff == 'Hard' %}bg-blue-600{% else %}bg-gray-500{% endif %} rounded-sm"></div>
-        <div class="h-7 w-1.5 {% if diff == 'Hard' %}bg-blue-600{% else %}bg-gray-500{% endif %} rounded-sm"></div>
+        <div class="h-3 w-1.5 {% if diff == 'easy' or diff == 'medium' or diff == 'hard' %}bg-blue-600{% else %}bg-gray-500{% endif %} rounded-sm"></div>
+        <div class="h-5 w-1.5 {% if diff == 'medium' or diff == 'hard' %}bg-blue-600{% else %}bg-gray-500{% endif %} rounded-sm"></div>
+        <div class="h-7 w-1.5 {% if diff == 'hard' %}bg-blue-600{% else %}bg-gray-500{% endif %} rounded-sm"></div>
     </div>
     
-    <p class="{% if diff == 'Easy' %}text-green-500{% elif diff == 'Medium' %}text-yellow-500{% else %}text-red-500{% endif %}">{{diff}}</p>
+    <p class="{% if diff == 'easy' %}text-green-500{% elif diff == 'medium' %}text-yellow-500{% else %}text-red-500{% endif %}">{{ diff|capitalize }}</p>
     
     <div class="flex items-center space-x-1">
       <svg class="w-4 h-4"xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">

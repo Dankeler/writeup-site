@@ -45,6 +45,7 @@
                     {{link("https://tryhackme.com/r/room/" + writeup.platform_url, "https://tryhackme.com/r/favicon.png", writeup.name)}}
                     {% else %}
                     {{link("https://www.hackthebox.com/machines/" + writeup.platform_url, "https://www.hackthebox.com/images/landingv3/favicon.png", writeup.name)}}
+                    {% endif %}
                 </div>
                 <div class="border-b pb-2 mb-5 w-full">
                     {% for tag in writeup.tags %}

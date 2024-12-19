@@ -1263,6 +1263,10 @@ input:checked + .toggle-bg {
   margin-top: 11rem;
 }
 
+.mt-45 {
+  margin-top: 11.5rem;
+}
+
 .mt-5 {
   margin-top: 1.25rem;
 }

@@ -80,18 +80,7 @@
         const hoverCat = document.getElementById("hover-cat");
 
         const hoverImageAvatar = document.getElementById("hover-image-avatar");
-        const hoverAvatar = document.getElementById("hover-avatar");
-
-
-        function filterWriteups() {
-            const activeDifficulties = Array.from(checkboxes)
-                .filter(checkbox => checkbox.checked)
-                .map(checkbox => checkbox.value);
-
-            writeups.forEach(writeup => {
-                writeup.style.display = activeDifficulties.includes(writeup.dataset.difficulty) ? "" : "none";
-            });
-        }
+        const hoverAvatar = document.getElementById("hover-avatar");+
 
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener("change", filterWriteups);
@@ -113,7 +102,6 @@
             hoverImageAvatar.src = "/static/writeups/images/avatar.jpg";
         });
 
-        filterWriteups();
     });
 </script>
 </html>

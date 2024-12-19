@@ -11,15 +11,43 @@ def db_connect():
     conn = sqlite3.connect('instance/database.db')
     return conn
 
-@app.route('/', methods=['GET', 'POST'])
+from flask import request, render_template
+from sqlalchemy import desc, asc
+
+@app.route('/', methods=['GET'])
 def home():
-    writeups = Writeup.query.order_by(Writeup.posted.desc()).all()
-    selected_difficulties = request.form.getlist('difficulty') if request.method == 'POST' else []
+    writeups_query = Writeup.query
+
+    selected_difficulties = request.args.getlist('difficulty')
+    selected_platforms = request.args.getlist('platform')
 
     if selected_difficulties:
-        writeups = Writeup.query.filter(Writeup.difficulty.in_(selected_difficulties))
+        writeups_query = writeups_query.filter(Writeup.difficulty.in_(selected_difficulties))
 
-    return render_template("home.html", writeups=writeups)
+    if selected_platforms:
+        writeups_query = writeups_query.filter(Writeup.platform.in_(selected_platforms))
+
+    posted = request.args.get('posted')
+    created = request.args.get('created')
+
+    if posted == 'newest':
+        writeups_query = writeups_query.order_by(desc(Writeup.posted))
+    elif posted == 'oldest':
+        writeups_query = writeups_query.order_by(asc(Writeup.posted))
+
+    if created == 'newest':
+        writeups_query = writeups_query.order_by(desc(Writeup.created))
+    elif created == 'oldest':
+        writeups_query = writeups_query.order_by(asc(Writeup.created))
+
+    writeups = writeups_query.order_by(Writeup.posted.desc()).all()
+
+    return render_template("home.html", writeups=writeups, 
+                           selected_difficulties=selected_difficulties, 
+                           selected_platforms=selected_platforms,
+                           posted=posted,
+                           created=created)
+
 
 @app.route('/about')
 def about():
