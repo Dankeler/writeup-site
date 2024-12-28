@@ -30,17 +30,15 @@ def home():
     if selected_platforms:
         writeups_query = writeups_query.filter(Writeup.platform.in_(selected_platforms))
 
-    posted = request.args.get('posted')
-    created = request.args.get('created')
+    sort = request.args.get('sort')
 
-    if posted == 'newest':
+    if sort == 'posted_new':
         writeups_query = writeups_query.order_by(desc(Writeup.posted))
-    elif posted == 'oldest':
+    elif sort == 'posted_old':
         writeups_query = writeups_query.order_by(asc(Writeup.posted))
-
-    if created == 'newest':
+    elif sort == 'created_new':
         writeups_query = writeups_query.order_by(desc(Writeup.created))
-    elif created == 'oldest':
+    elif sort == 'created_old':
         writeups_query = writeups_query.order_by(asc(Writeup.created))
 
     per_page = 12
@@ -55,8 +53,7 @@ def home():
     return render_template("home.html", writeups=writeups, 
                        selected_difficulties=selected_difficulties, 
                        selected_platforms=selected_platforms,
-                       posted=posted,
-                       created=created,
+                       sort=sort,
                        pages=pages,
                        current_page=page,
                        total_pages=total_pages)
@@ -92,18 +89,49 @@ def writeup(url):
 
     return render_template("writeup.html", writeup=writeup, html_content=html_content)
 
-@app.route('/search', methods=["POST"])
+@app.route('/search', methods=['POST', 'GET'])
 def search():
     value = request.form.get('writeup_name')
-    connection = db_connect()
+    writeups_query = Writeup.query
 
-    query = "SELECT * FROM writeup WHERE name LIKE ?"
-    results = connection.execute(query, ('%' + value + '%',))
+    if value:
+        writeups_query = writeups_query.filter(Writeup.name.ilike(f"%{value}%"))
 
-    column_names = [description[0] for description in results.description]
+    selected_difficulties = request.args.getlist('difficulty')
+    if selected_difficulties:
+        writeups_query = writeups_query.filter(Writeup.difficulty.in_(selected_difficulties))
 
-    writeups = [dict(zip(column_names, row)) for row in results.fetchall()]
+    selected_platforms = request.args.getlist('platform')
+    if selected_platforms:
+        writeups_query = writeups_query.filter(Writeup.platform.in_(selected_platforms))
 
-    connection.close()
-    
-    return render_template("home.html", writeups=writeups)
+    sort = request.args.get('sort')
+    if sort == 'posted_new':
+        writeups_query = writeups_query.order_by(desc(Writeup.posted))
+    elif sort == 'posted_old':
+        writeups_query = writeups_query.order_by(asc(Writeup.posted))
+    elif sort == 'created_new':
+        writeups_query = writeups_query.order_by(desc(Writeup.created))
+    elif sort == 'created_old':
+        writeups_query = writeups_query.order_by(asc(Writeup.created))
+
+    per_page = 12
+    page = request.args.get('page', 1, type=int)
+    total_writeups = writeups_query.count()
+    total_pages = ceil(total_writeups / per_page)
+
+    writeups = writeups_query.offset((page - 1) * per_page).limit(per_page).all()
+
+    pages = range(1, total_pages + 1)
+
+    return render_template(
+        "home.html",
+        writeups=writeups,
+        selected_difficulties=selected_difficulties,
+        selected_platforms=selected_platforms,
+        sort=sort,
+        pages=pages,
+        current_page=page,
+        total_pages=total_pages,
+        search_query=value,
+    )

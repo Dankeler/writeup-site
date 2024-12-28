@@ -61,7 +61,7 @@ Starting gobuster in directory enumeration mode
 /.htaccess            (Status: 403) [Size: 278]
 /images               (Status: 301) [Size: 322] [--> http://10.10.123.111/assets/images/]
 /index.php            (Status: 200) [Size: 0]
-Progress: 4614 / 4615 (99.98%)
+Progress: 4615 / 4615 (100%)
 ===============================================================
 Finished
 ===============================================================")}}
