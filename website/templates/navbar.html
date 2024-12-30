@@ -16,7 +16,7 @@
 <div class="min-h-screen flex flex-col dark:bg-neutral-900 dark:text-white">
     <div class="flex-1 flex flex-col dark:bg-neutral-900 z-50">
         <nav class="shadow-sm w-full bg-white border-b border-gray-200 dark:bg-neutral-800 dark:border-neutral-700 flex items-center justify-between relative">
-            <a href="/" class="z-10 flex justify-between items-center pl-3 pr-6 hover:bg-gray-300 dark:hover:bg-neutral-700 rounded-r-2xl transition ease-in-out duration-200" id="hover-cat">
+            <a href="/" class="z-10 flex justify-between items-center pl-3 pr-6 hover:bg-gray-300 dark:hover:bg-neutral-700 transition ease-in-out duration-200" id="hover-cat">
                 <img id="hover-image-cat" src="/static/writeups/images/logo.jpg" alt="Logo" class="object-contain w-16 h-16">
                 <p class="font-semibold">Home</p>
             </a>
@@ -45,7 +45,7 @@
                         </svg>
                     </button>
                 </div>
-                <a class="flex items-center pr-3 gap-2 pl-6 hover:bg-gray-300 dark:hover:bg-neutral-700 rounded-l-2xl transition ease-in-out duration-200" id="hover-avatar" href="/about">
+                <a class="flex items-center pr-3 gap-2 pl-6 hover:bg-gray-300 dark:hover:bg-neutral-700 transition ease-in-out duration-200" id="hover-avatar" href="/about">
                     <span class="font-semibold">About me</span>
                     <img class="w-16 h-16" src="/static/writeups/images/avatar.jpg" id="hover-image-avatar">
                 </a>
@@ -56,6 +56,7 @@
         </div>
     </div>
 </body>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const themeToggleButton = document.getElementById('theme-toggle');
@@ -86,38 +87,32 @@
                 localStorage.setItem('color-theme', 'light');
             }
         });
+
+    const writeups = document.querySelectorAll(".writeup");
+
+    const hoverImageCat = document.getElementById("hover-image-cat");
+    const hoverCat = document.getElementById("hover-cat");
+
+    const hoverImageAvatar = document.getElementById("hover-image-avatar");
+    const hoverAvatar = document.getElementById("hover-avatar");
+
+    hoverCat.addEventListener("mouseenter", function() {
+        hoverImageCat.src = "/static/writeups/images/logo.gif";
     });
 
-    document.addEventListener("DOMContentLoaded", function() {
-        const checkboxes = document.querySelectorAll("input[name='difficulty']");
-        const writeups = document.querySelectorAll(".writeup");
-
-        const hoverImageCat = document.getElementById("hover-image-cat");
-        const hoverCat = document.getElementById("hover-cat");
-
-        const hoverImageAvatar = document.getElementById("hover-image-avatar");
-        const hoverAvatar = document.getElementById("hover-avatar");+
-
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener("change", filterWriteups);
-        });
-
-        hoverCat.addEventListener("mouseenter", function() {
-            hoverImageCat.src = "/static/writeups/images/logo.gif";
-        });
-
-        hoverCat.addEventListener("mouseleave", function() {
-            hoverImageCat.src = "/static/writeups/images/logo.jpg";
-        });
-
-        hoverAvatar.addEventListener("mouseenter", function() {
-            hoverImageAvatar.src = "/static/writeups/images/avatar.gif";
-        });
-
-        hoverAvatar.addEventListener("mouseleave", function() {
-            hoverImageAvatar.src = "/static/writeups/images/avatar.jpg";
-        });
-
+    hoverCat.addEventListener("mouseleave", function() {
+        hoverImageCat.src = "/static/writeups/images/logo.jpg";
     });
+
+    hoverAvatar.addEventListener("mouseenter", function() {
+        hoverImageAvatar.src = "/static/writeups/images/avatar.gif";
+    });
+
+    hoverAvatar.addEventListener("mouseleave", function() {
+        hoverImageAvatar.src = "/static/writeups/images/avatar.jpg";
+    });
+
+});
+
 </script>
 </html>

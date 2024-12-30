@@ -110,7 +110,7 @@
         <div class="flex">
             {% for page_num in pages %}
                 <a href="?page={{ page_num }}{% for difficulty in selected_difficulties -%}&difficulty={{ difficulty }}{% endfor %}{% for platform in selected_platforms -%}&platform={{ platform }}{% endfor %}{% if posted -%}&posted={{ posted }}{% endif %}{% if created -%}&created={{ created }}{% endif %}" 
-                class="dark:border-neutral-800 px-6 py-2 text-white {% if loop.first %}rounded-l-md border-r-2{% elif loop.last %}rounded-r-md border-l-2{% endif %} {{ 'bg-blue-600' if page_num == current_page else 'bg-gray-400 dark:bg-neutral-700 dark:hover:bg-neutral-600 hover:bg-gray-500' }} ">
+                class="dark:border-neutral-800 px-6 py-2 text-white first:border-r-2 last:border-l-2 first:rounded-l-md last:rounded-r-md {{ 'bg-blue-600' if page_num == current_page else 'bg-gray-400 dark:bg-neutral-700 dark:hover:bg-neutral-600 hover:bg-gray-500' }} ">
                     {{ page_num }}
                 </a>
             {% endfor %}
