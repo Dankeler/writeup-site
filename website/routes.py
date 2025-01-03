@@ -93,6 +93,8 @@ def search():
 
     if value:
         writeups_query = writeups_query.filter(Writeup.name.ilike(f"%{value}%"))
+    else:
+        writeups_query = writeups_query.order_by(Writeup.posted.desc())
 
     selected_difficulties = request.args.getlist('difficulty')
     if selected_difficulties:

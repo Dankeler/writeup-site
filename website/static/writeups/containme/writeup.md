@@ -126,7 +126,7 @@ Finished
 
 {{text("Running out of ideas, I tried logging in as user <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>mike</code> since I now had access to his <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>id_rsa</code> key. That didn't work.")}}
 
-{{text("I didn't have a clue what to do so I checked the room solution.")}}
+{{text("I didn't have a clue what to do so I checked the room's solution.")}}
 
 {{image("../../static/writeups/containme/images/000006.jpg")}}
 

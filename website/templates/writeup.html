@@ -27,38 +27,39 @@
                     </nav> 
                 </div>
                 <div>
-                    <h1 class="text-4xl">
+                    <div class="mt-1 mb-2">
+                        <div class="flex gap-4">
+                    <a class="text-4xl mb-1">
                         {% if writeup.platform == 'thm' %}
                             TryHackMe:
                         {% else %}
                             Hack The Box:
                         {% endif %}
                         <span class="font-bold">{{writeup.name}}</span>
-                    </h1>
-                    <p class="text-xl mt-1">{{writeup.description}}</p>
+                    </a>
+                    <div class="flex items-center py-1 space-x-3 rounded-lg">
+                        {{difficulty(writeup.difficulty)}}
+                    </div>
+                </div>
+                    <a>Posted: <b>{{writeup.posted.strftime('%b %d, %Y')}}</b> • Created:  <b>{{writeup.created.strftime('%b %d, %Y')}}</b></a>
+                    </div>
+                    <p class="text-xl">{{writeup.description}}</p>
                 </div>
 
-                {{difficulty(writeup.difficulty, writeup.posted.strftime('%b %d, %Y'))}}
-
-                <div class="flex justify-start mt-1">
+                <div class="flex justify-start mt-3 border-b pb-2">
                     {% if writeup.platform == 'thm' %}
                         {{link("https://tryhackme.com/r/room/" + writeup.platform_url, "https://tryhackme.com/r/favicon.png", writeup.name)}}
                     {% else %}
                         {{link("https://www.hackthebox.com/machines/" + writeup.platform_url, "https://www.hackthebox.com/images/landingv3/favicon.png", writeup.name)}}
                     {% endif %}
                 </div>
-                <div class="border-b pb-2 mb-5 w-full">
-                    {% for tag in writeup.tags %}
-                        <span class="bg-gray-300 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full">{{tag.name}}</span>
-                    {% endfor %}
-                </div>
             </div>
 
             <div class="w-1/5 flex flex-col items-center mt-5 lg:mt-0 pl-6">
                 <div class="bg-gray-200 p-3 w-full dark:bg-neutral-800 rounded-md">
-                    <p class="text-center font-bold">Latest Writeups</p>
-                    <ul>
-                        <li class="dark:text-white">
+                    <p class="text-center font-bold truncate">Latest Writeups</p>
+                    <ul class="text-wrap">
+                        <li class="dark:text-white truncate">
                             <a class="ml-3 font-semibold" href="/writeup/Whiterose">
                                 TryHackMe: Whiterose
                             </a>
@@ -68,22 +69,21 @@
             </div>
         </div>
 
-        <div class="flex justify-between mt-8">
+        <div class="flex justify-between mt-5">
             <div id="writeup" class="w-4/5">
                 {{html_content | safe}}
             </div>
 
-            <div class="w-1/5 flex flex-col items-center pl-6 sticky top-20 h-screen">
+            <div class="w-1/5 flex flex-col items-center pl-6 sticky top-16 h-full">
                 <div class="bg-gray-200 dark:bg-neutral-800 p-3 w-full rounded-md">
-                    <p class="text-center font-bold">Contents</p>
-                    <ul class="dark:text-white">
+                    <p class="text-center font-bold truncate">Contents</p>
+                    <ul class="dark:text-white truncate">
                         {% for list in writeup.lists %}
                             {{navi(list.href, list.name)}}
                         {% endfor %}
                     </ul>
                 </div>
             </div>
-            
         </div>
     </div>
 </div>
