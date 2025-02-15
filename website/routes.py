@@ -56,7 +56,7 @@ def home():
                        sort=sort,
                        pages=pages,
                        current_page=page,
-                       total_pages=total_pages)
+                       total_pages=total_pages,)
 
 @app.route('/about')
 def about():
@@ -73,6 +73,8 @@ def redirect_home():
 @app.route('/writeup/<string:url>')
 def writeup(url):
     writeup = Writeup.query.get_or_404(url)
+
+    latest_writeups = Writeup.query.order_by(Writeup.posted.desc()).limit(5).all()
     
     base_dir = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(base_dir, "static", "writeups", writeup.url, "writeup.md")
@@ -84,7 +86,7 @@ def writeup(url):
 
     html_content = markdown.markdown(rendered_content)
 
-    return render_template("writeup.html", writeup=writeup, html_content=html_content)
+    return render_template("writeup.html", writeup=writeup, html_content=html_content, latest_writeups=latest_writeups)
 
 @app.route('/search', methods=['POST', 'GET'])
 def search():

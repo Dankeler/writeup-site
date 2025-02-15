@@ -78,7 +78,7 @@ Finished
 
 {{text("Now we are able to use a tool called <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>moodlescan</code> to gather more informations.")}}
 
-{{link("https://github.com/inc0d3/moodlescan", "", "moodlescan v0.8")}}
+{{link("https://github.com/inc0d3/moodlescan", "../../../static/writeups/images/github.jpg", "moodlescan v0.8")}}
 
 {{text("We install it by following the instructions and run it against our web page.")}}
 
@@ -109,7 +109,7 @@ Scan completed.")}}
 
 {{text("It didn't find any vulnerabilities, but we do have the version that is being used. Let's search for any known exploits to that version.")}}
 
-{{link("https://github.com/HoangKien1020/CVE-2020-14321", "", "CVE-2020-14321")}}
+{{link("https://github.com/HoangKien1020/CVE-2020-14321", "../../../static/writeups/images/github.jpg", "CVE-2020-14321")}}
 
 {{text("We copy it onto our machine and run it.")}}
 
@@ -210,7 +210,7 @@ for (root,dirs,files) in os.walk(moodle_location):
 
 {{text("I followed the article by downloading the exploit mentioned, compiling it and downloading it onto the victim's machine.")}}
 
-{{link("https://github.com/whotwagner/logrotten", "", "Winning a race condition in logrotate to elevate privileges")}}
+{{link("https://github.com/whotwagner/logrotten", "../../../static/writeups/images/github.jpg", "Winning a race condition in logrotate to elevate privileges")}}
 
 {{text("Then I created a payload file with a reverse shell.")}}
 

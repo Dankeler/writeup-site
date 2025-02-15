@@ -1,5 +1,5 @@
 {% macro console(command, output) %}
-<section class="bg-gray-200 rounded-lg overflow-hidden w-full shadow-md mb-3 relative z-30 dark:bg-neutral-800">
+<section class="bg-gray-200 rounded-lg overflow-hidden w-full shadow-md mb-3 mt-3 relative z-30 dark:bg-neutral-800">
     <div class="relative flex items-center py-1 border-b border-gray-600 dark:border-neutral-600 z-50">
         <div class="flex items-center mx-auto space-x-1">
             <svg class="w-8 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -42,11 +42,11 @@
 {% macro header(text, id) %}
 </section>
 <section id="{{id}}">
-<h3 class="text-3xl mb-3 font-bold">{{text}}</h3>
+<h3 class="text-3xl mb-3 mt-3 font-bold">{{text}}</h3>
 {% endmacro %}
 
 {% macro image(path) %}
-<div class="image-gallery flex justify-center items-center mb-3">
+<div class="image-gallery flex justify-center items-center mb-3 mt-3">
     <a onclick="openModal('{{ path }}')">
         <img src="{{ path }}" class="writeup-image"/>
     </a>
@@ -54,8 +54,8 @@
 {% endmacro %}
 
 {% macro link(href, icon, text) %}
-<div class="flex justify-center mb-2">
-    <a href="{{href}}" class="dark:hover:bg-neutral-700 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-neutral-700 dark:bg-neutral-800" target="_blank">
+<div class="flex justify-center mb-2 mt-2">
+    <a href="{{href}}" class="dark:hover:bg-neutral-700 flex items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-neutral-700 dark:bg-neutral-800" target="_blank">
         {% if icon != "null" %}
         <img class="ml-2 w-5 h-5 object-cover rounded-t-lg md:rounded-none md:rounded-s-lg" src="{{icon}}">
         {% endif %}
@@ -86,7 +86,7 @@
 {% endmacro %}
 
 {% macro text(text) %}
-<p class="mb-3">{{ text | safe }}</p>
+<p>{{ text | safe }}</p>
 {% endmacro %}
 
 {% macro script() %}

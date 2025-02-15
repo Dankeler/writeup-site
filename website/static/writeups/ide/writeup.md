@@ -84,7 +84,7 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2024-12-17 09:10:
 
 {{text("Now we can search for any known exploits for <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>Codiad 2.8.4</code>.")}}
 
-{{text("I came acroos this.")}}
+{{text("I came across this.")}}
 
 {{link("https://www.exploit-db.com/exploits/49705", "https://www.exploit-db.com/favicon.ico", "Codiad 2.8.4 - Remote Code Execution (Authenticated)")}}
 

@@ -107,7 +107,6 @@
         {% endfor %}
     </div>
     
-
     <div class="flex justify-center">
         {% if current_page > 1 %}
             <a href="?page={{ current_page - 1 }}{% for difficulty in selected_difficulties %}&difficulty={{ difficulty }}{% endfor %}{% for platform in selected_platforms %}&platform={{ platform }}{% endfor %}{% if posted %}&posted={{ posted }}{% endif %}{% if created %}&created={{ created }}{% endif %}"
@@ -119,16 +118,15 @@
         <div class="flex">
             {% for page_num in pages %}
             <a href="?page={{ page_num }}{% for difficulty in selected_difficulties -%}&difficulty={{ difficulty }}{% endfor %}{% for platform in selected_platforms -%}&platform={{ platform }}{% endfor %}{% if posted -%}&posted={{ posted }}{% endif %}{% if created -%}&created={{ created }}{% endif %}" 
-            class="dark:border-neutral-800 px-6 py-2 text-white border border-gray-400 {{ 'rounded-l-md' if loop.first else '' }} {{ 'rounded-r-md' if loop.last else '' }} {{ 'bg-blue-600' if page_num == current_page else 'bg-gray-400 dark:bg-neutral-700 dark:hover:bg-neutral-600 hover:bg-gray-500' }}">
+            class="dark:border-neutral-800 px-6 py-2 text-white border border-gray-500 {{ 'rounded-l-md' if loop.first else '' }} {{ 'rounded-r-md' if loop.last else '' }} {{ 'bg-blue-600' if page_num == current_page else 'bg-gray-400 dark:bg-neutral-700 dark:hover:bg-neutral-600 hover:bg-gray-500' }}">
                 {{ page_num }}
             </a>
-        {% endfor %}
-        
+            {% endfor %}
         </div>
         
         {% if current_page < total_pages %}
             <a href="?page={{ current_page + 1 }}{% for difficulty in selected_difficulties %}&difficulty={{ difficulty }}{% endfor %}{% for platform in selected_platforms %}&platform={{ platform }}{% endfor %}{% if posted %}&posted={{ posted }}{% endif %}{% if created %}&created={{ created }}{% endif %}"
-            class="rounded px-4 py-2 mx-2 text-white bg-blue-600 dark:hover:bg-blue-700 hover:bg-blue-700">Next</a>
+            class="rounded px-4 py-2 mx-2 text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-600">Next</a>
         {% else %}
             <button class="rounded px-4 py-2 mx-2 text-gray-300 bg-gray-400 dark:bg-neutral-700" disabled>Next</button>
         {% endif %}
@@ -136,6 +134,7 @@
 </div>
 
 <script>
+    //Filter button click arrow animation
     document.querySelectorAll('.dropdownButton').forEach(dropdownButton => {
         const dropdownMenu = dropdownButton.nextElementSibling;
         const dropdownArrow = dropdownButton.querySelector('svg');
@@ -178,6 +177,7 @@
         });
     }
 
+    //Checking checkboxes
     let timeout;
 
     document.querySelectorAll('.filter-checkbox').forEach((checkbox) => {
@@ -193,10 +193,10 @@
         });
     });
 
+    //Pagination
     const writeups = Array.from(document.querySelectorAll('.writeup'));
     const filters = Array.from(document.querySelectorAll('.filter-checkbox'));
     const writeupsContainer = document.getElementById('writeupsContainer');
-    const prevPage = document.getElementById('prevPage');
     const nextPage = document.getElementById('nextPage');
     const itemsPerPage = 12;
 
@@ -209,26 +209,12 @@
         filteredWriteups.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
             .forEach(w => w.classList.remove('hidden'));
 
-        prevPage.style.display = currentPage > 0 ? 'inline-block' : 'none';
-        nextPage.style.display = currentPage < totalPages - 1 ? 'inline-block' : 'none';
     }
 
     filters.forEach(filter => filter.addEventListener('change', () => {
         currentPage = 0;
         updatePagination();
     }));
-
-    prevPage.addEventListener('click', () => {
-        currentPage = Math.max(0, currentPage - 1);
-        updatePagination();
-    });
-
-    nextPage.addEventListener('click', () => {
-        currentPage++;
-        updatePagination();
-    });
-
-    updatePagination();
 
 </script>
 

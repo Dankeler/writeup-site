@@ -6,42 +6,42 @@
 <div class="mt-5 flex px-16 w-full h-full">
     <div class="w-full">
         <div class="flex justify-between items-start">
-            <div class="w-4/5">
+            <div class="sm:w-4/5 w-full">
                 <div>
                     <nav class="flex" aria-label="Breadcrumb">
                         <ol class="inline-flex items-center space-x-1 md:space-x-1 rtl:space-x-reverse">
-                        <li class="inline-flex items-center">
-                            <a href="/" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-white">
-                            Home
-                            </a>
-                        </li>
-                        <li aria-current="page">
-                            <div class="flex items-center">
-                            <svg class="rtl:rotate-180 w-3 h-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                            </svg>
-                            <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">{{writeup.name}}</span>
-                            </div>
-                        </li>
+                            <li class="inline-flex items-center">
+                                <a href="/" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-white">
+                                Home
+                                </a>
+                            </li>
+                            <li aria-current="page">
+                                <div class="flex items-center">
+                                    <svg class="rtl:rotate-180 w-3 h-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                    </svg>
+                                    <span class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">{{writeup.name}}</span>
+                                </div>
+                            </li>
                         </ol>
                     </nav> 
                 </div>
                 <div>
                     <div class="mt-1 mb-2">
-                        <div class="flex gap-4">
-                    <a class="text-4xl mb-1">
-                        {% if writeup.platform == 'thm' %}
-                            TryHackMe:
-                        {% else %}
-                            Hack The Box:
-                        {% endif %}
-                        <span class="font-bold">{{writeup.name}}</span>
-                    </a>
-                    <div class="flex items-center py-1 space-x-3 rounded-lg">
-                        {{difficulty(writeup.difficulty)}}
-                    </div>
-                </div>
-                    <a>Posted: <b>{{writeup.posted.strftime('%b %d, %Y')}}</b> • Created:  <b>{{writeup.created.strftime('%b %d, %Y')}}</b></a>
+                        <div class="flex gap-3">
+                            <a class="text-4xl mb-1">
+                                {% if writeup.platform == 'thm' %}
+                                    TryHackMe:
+                                {% else %}
+                                    Hack The Box:
+                                {% endif %}
+                                <span class="font-bold">{{writeup.name}}</span>
+                            </a>
+                            <div class="flex items-center py-1 space-x-2 rounded-lg">
+                                {{difficulty(writeup.difficulty)}}
+                            </div>
+                        </div>
+                        <a>Posted: <b>{{writeup.posted.strftime('%b %d, %Y')}}</b> • Created:  <b>{{writeup.created.strftime('%b %d, %Y')}}</b></a>
                     </div>
                     <p class="text-xl">{{writeup.description}}</p>
                 </div>
@@ -55,26 +55,32 @@
                 </div>
             </div>
 
-            <div class="w-1/5 flex flex-col items-center mt-5 lg:mt-0 pl-6">
+            <div class="w-1/5 sm:flex flex-col items-center mt-5 lg:mt-0 pl-6 hidden">
                 <div class="bg-gray-200 p-3 w-full dark:bg-neutral-800 rounded-md">
                     <p class="text-center font-bold truncate">Latest Writeups</p>
                     <ul class="text-wrap">
+                        {% for writeup in latest_writeups %}
                         <li class="dark:text-white truncate">
-                            <a class="ml-3 font-semibold" href="/writeup/Whiterose">
-                                TryHackMe: Whiterose
-                            </a>
+                            <a href="/writeup/{{ writeup.url }}" class="hover:text-blue-400 transform transition-all duration-300 ease-in-out">
+                                {% if writeup.platform == 'thm' %}
+                                • THM: <span class="font-semibold">{{ writeup.name }}</span>
+                                {% else %}
+                                • HTB: <span class="font-semibold">{{ writeup.name }}</span>
+                                {% endif %}
+                            </a>                            
                         </li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
         </div>
 
         <div class="flex justify-between mt-5">
-            <div id="writeup" class="w-4/5">
+            <div id="writeup" class="w-full sm:w-4/5">
                 {{html_content | safe}}
             </div>
 
-            <div class="w-1/5 flex flex-col items-center pl-6 sticky top-16 h-full">
+            <div class="w-1/5 sm:flex flex-col items-center pl-6 sticky top-16 h-full hidden">
                 <div class="bg-gray-200 dark:bg-neutral-800 p-3 w-full rounded-md">
                     <p class="text-center font-bold truncate">Contents</p>
                     <ul class="dark:text-white truncate">

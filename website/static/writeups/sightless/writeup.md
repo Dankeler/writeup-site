@@ -29,7 +29,7 @@ Nmap done: 1 IP address (1 host up) scanned in 290.08 seconds")}}
 {{text("Since anonymous login didn't work the FTP server, I proceeded with the web page after adding <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>http://sightless.htb/</code> to my <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/etc/hosts</code> file.")}}
 
 {{image("../../static/writeups/sightless/images/000001.jpg")}}
-{}
+
 {{text("Most interesting thing I found was the redirection to the subdomain upon clicking one of the buttons. Once again I added that as an entry and visited the subdomain.")}}
 
 {{image("../../static/writeups/sightless/images/000002.jpg")}}
