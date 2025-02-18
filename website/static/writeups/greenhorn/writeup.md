@@ -58,6 +58,8 @@ robots.txt              [Status: 200, Size: 47, Words: 4, Lines: 3, Duration: 57
 
 {{image("../../static/writeups/greenhorn/images/000002.jpg")}}
 
+{{header("Shell as www-data", "shell-as-www-data")}}
+
 {{text("After finding the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>GreenHorn</code> repository, I started looking through the files.")}}
 
 {{text("I was able to find a <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>pass.php</code> file with what looked like a hash.")}}
@@ -108,19 +110,19 @@ Session completed. ")}}
 
 {{image("../../static/writeups/greenhorn/images/000006.jpg")}}
 
-{{header}}
+{{header("Shell as junior", "shell-as-junior")}}
 
 {{text("I spend a lot of time looking through the file system, but I couldn't find anything.")}}
 
 {{text("Then I remembered that one of the users, <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>junior</code>, was mentioned before.")}}
 
-{{text("Since he was a 'junior', I wondered if we reused his passwords.")}}
+{{text("Since he was a \"junior\", I wondered if we reused his passwords.")}}
 
 {{image("../../static/writeups/greenhorn/images/000007.jpg")}}
 
 {{text("And I was right, he used the same password that allowed us to log in into the Pluck CMS.")}}
 
-{{header}}
+{{header("Shell as root", "shell-as-root")}}
 
 {{text("I noticed a <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>.pdf</code> file in my user's home directory. I downloaded it onto my machine.")}}
 

@@ -49,7 +49,7 @@ Nmap done: 1 IP address (1 host up) scanned in 264.11 seconds")}}
 
 {{text("Then I uploaded it and went to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/cvs/shell.pdf.php</code> to see if it worked.")}}
 
-{{image("../../static/writeups/hackervshacker/images/000002.jpg")}}
+{{image("../../static/writeups/hackervshacker/images/000003.jpg")}}
 
 {{text("Seemed like it got uploaded successfully and now we could run commands using the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>?cmd=</code> parameter in the URL.")}}
 
@@ -57,7 +57,7 @@ Nmap done: 1 IP address (1 host up) scanned in 264.11 seconds")}}
 
 {{text("It worked and I got a connection.")}}
 
-{{image("../../static/writeups/hackervshacker/images/000002.jpg")}}
+{{image("../../static/writeups/hackervshacker/images/000004.jpg")}}
 
 {{header("Shell as lachlan", "shell-as-lachlan")}}
 
@@ -92,10 +92,10 @@ ls -sf /dev/null /home/lachlan/.bash_history")}}
 
 {{text("I created a <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>pkill</code> file inside of <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/home/lachlan/bin</code> and added a reverse shell to it. Remember to also make it executeable.")}}
 
-{{image("../../static/writeups/hackervshacker/images/000003.jpg")}}
+{{image("../../static/writeups/hackervshacker/images/000005.jpg")}}
 
 {{text("After setting up a listener, I became root.")}}
 
-{{image("../../static/writeups/hackervshacker/images/000004.jpg")}}
+{{image("../../static/writeups/hackervshacker/images/000006.jpg")}}
 
 {{script()}}

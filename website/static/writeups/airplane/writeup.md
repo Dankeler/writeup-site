@@ -122,9 +122,7 @@ if __name__ == '__main__':
 
 {{text("According to this if we run <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>find . -exec /bin/sh -p \; -quit</code>, we should become the user <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>carlos</code>.")}}
 
-{{image("../../static/writeups/airplane/images/000007.jpg")}}
-
-{{header()}}
+{{image("../../static/writeups/airplane/images/000006.jpg")}}
 
 {{text("We now can add our own key to <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>/home/carlos/.ssh/authorized_keys</code> to get a better shell.")}}
 

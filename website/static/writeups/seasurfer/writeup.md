@@ -83,7 +83,7 @@ Creator                         : wkhtmltopdf 0.12.5
 
 {{text("All I was able to find was this.")}}
 
-{{link("https://github.com/wkhtmltopdf/wkhtmltopdf/issues/3570", "", "SSRF and file read with wkhtmltoimage")}}
+{{link("https://github.com/wkhtmltopdf/wkhtmltopdf/issues/3570", "./../static/writeups/images/github.jpg", "SSRF and file read with wkhtmltoimage")}}
 
 {{text("To exploit this, we create a PHP script that redirects to a local file and host it on a PHP server on our machine. Then, using an <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>iframe</code> tag, we send a request to the PDF generator, pointing it to our script and specifying the file to read.")}}
 
@@ -133,7 +133,10 @@ Creator                         : wkhtmltopdf 0.12.5
 
 {{text("If we did everything correctly, we should get a connection.")}}
 
-{{image("../../static/writeups/seasurfer/images/000008.jpg")}}
+{{image("../../static/writeups/seasurfer/images/000009.jpg")}}
+
+{{image("../../static/writeups/seasurfer/images/000010.jpg")}}
+
 
 {{header("Shell as kyle", "shell-as-kyle")}}
 
@@ -173,7 +176,7 @@ tar -zcf /home/kyle/backups/invoices.tgz *")}}
 
 {{text("Now we set up a listener and should get a reverse shell.")}}
 
-{{image("../../static/writeups/seasurfer/images/000009.jpg")}}
+{{image("../../static/writeups/seasurfer/images/000011.jpg")}}
 
 {{header("Shell as root", "shell-as-root")}}
 
@@ -199,7 +202,7 @@ tar -zcf /home/kyle/backups/invoices.tgz *")}}
 
 {{text("Now we continue with the article and get the exploit from github page.")}}
 
-{{link("https://github.com/nongiach/sudo_inject", "", "[Linux] Privilege Escalation by injecting process possessing sudo tokens")}}
+{{link("https://github.com/nongiach/sudo_inject", "./../static/writeups/images/github.jpg", "[Linux] Privilege Escalation by injecting process possessing sudo tokens")}}
 
 {{text("For some reason the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>exploit.sh</code> didn't work and I used <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>exploit_v2.sh</code>.")}}
 

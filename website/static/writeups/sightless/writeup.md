@@ -38,7 +38,7 @@ Nmap done: 1 IP address (1 host up) scanned in 290.08 seconds")}}
 
 {{text("While searching for an exploit to that version, I found this.")}}
 
-{{link("https://github.com/0xRoqeeb/sqlpad-rce-exploit-CVE-2022-0944", "", "SQLPad RCE Exploit")}}
+{{link("https://github.com/0xRoqeeb/sqlpad-rce-exploit-CVE-2022-0944", "./../static/writeups/images/github.jpg", "SQLPad RCE Exploit")}}
 
 {{text("I used the exploit and successfully got a reverse shell on the machine.")}}
 

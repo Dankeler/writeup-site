@@ -186,7 +186,7 @@ for (root,dirs,files) in os.walk(moodle_location):
 
 {{text("After a minute, I got a connection back.")}}
 
-{{image("../../static/writeups/plottedlms/images/000004.jpg")}}
+{{image("../../static/writeups/plottedlms/images/000005.jpg")}}
 
 {{header("Shell as root", "shell-as-root")}}
 

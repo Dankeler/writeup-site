@@ -69,6 +69,8 @@ Finished
 
 {{image("../../static/writeups/lumberjackturtle/images/000003.jpg")}}
 
+{{header("Shell as root?", "shell-as-root")}}
+
 {{text("This page is probably vulnerable to the <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>log4j</code> attack.")}}
 
 {{text("While searching for a payload to test this, I came across this article.")}}
@@ -83,7 +85,7 @@ Finished
 
 {{text("More searching and I came across this GitHub page.")}}
 
-{{link("https://github.com/pimps/JNDI-Exploit-Kit", "", "JNDI-Exploit-Kit")}}
+{{link("https://github.com/pimps/JNDI-Exploit-Kit", "./../static/writeups/images/github.jpg", "JNDI-Exploit-Kit")}}
 
 {{text("We download the compiled version onto our machine.")}}
 
@@ -103,7 +105,7 @@ Finished
 
 {{image("../../static/writeups/lumberjackturtle/images/000006.jpg")}}
 
-{{header}}
+{{header("Flag", "flag")}}
 
 {{text("After running <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>linpeas</code> we learn that we are in a <code class='bg-gray-300 rounded-md px-1 dark:bg-neutral-700'>docker</code> container.")}}
 
