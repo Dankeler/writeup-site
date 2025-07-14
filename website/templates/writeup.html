@@ -32,8 +32,10 @@
                             <a class="text-4xl mb-1">
                                 {% if writeup.platform == 'thm' %}
                                     TryHackMe:
-                                {% else %}
+                                {% elif writeup.platform == 'htb' %}
                                     Hack The Box:
+                                {% else %}
+                                    {{ writeup.platform.upper() }}:
                                 {% endif %}
                                 <span class="font-bold">{{writeup.name}}</span>
                             </a>
@@ -49,9 +51,10 @@
                 <div class="flex justify-start mt-3 border-b pb-2">
                     {% if writeup.platform == 'thm' %}
                         {{link("https://tryhackme.com/r/room/" + writeup.platform_url, "https://tryhackme.com/r/favicon.png", writeup.name)}}
-                    {% else %}
+                    {% elif writeup.platform == 'htb' %}
                         {{link("https://www.hackthebox.com/machines/" + writeup.platform_url, "https://www.hackthebox.com/images/landingv3/favicon.png", writeup.name)}}
                     {% endif %}
+
                 </div>
             </div>
 
@@ -64,8 +67,10 @@
                             <a href="/writeup/{{ writeup.url }}" class="hover:text-blue-400 transform transition-all duration-300 ease-in-out">
                                 {% if writeup.platform == 'thm' %}
                                 • THM: <span class="font-semibold">{{ writeup.name }}</span>
-                                {% else %}
+                                {% elif writeup.platform == 'htb' %}
                                 • HTB: <span class="font-semibold">{{ writeup.name }}</span>
+                                {% else %}
+                                • {{writeup.platform.upper()}}: <span class="font-semibold">{{writeup.name}}</span>
                                 {% endif %}
                             </a>                            
                         </li>

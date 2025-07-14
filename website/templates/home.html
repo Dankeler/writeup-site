@@ -83,11 +83,13 @@
                 <img class="pt-2 h-40 w-full object-contain rounded-t-lg md:rounded-none md:rounded-s-lg border-b dark:border-neutral-600" src="/static/writeups/{{writeup.url}}/logo.jpg" alt="">
                 <div class="p-4 flex flex-col justify-between flex-grow">
                     <h5 class="text-xl font-medium text-gray-900 dark:text-white truncate">
-                        {% if writeup.platform == 'thm' %} 
-                            THM: {{ writeup.name }} 
-                        {% else %} 
-                            HTB: {{ writeup.name }}
-                        {% endif %}
+                                {% if writeup.platform == 'thm' %}
+                                    THM: {{writeup.name}}
+                                {% elif writeup.platform == 'htb' %}
+                                    HTB: {{writeup.name}}
+                                {% else %}
+                                    {{ writeup.platform.upper() }}: {{writeup.name}}
+                                {% endif %}
                     </h5>
                     <div>
                         <div class="flex items-center py-1 space-x-3">
